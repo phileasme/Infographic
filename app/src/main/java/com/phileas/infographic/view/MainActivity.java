@@ -10,21 +10,26 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.ValueAdapter;
+import com.phileas.infographic.controller.Charts;
 
 import java.util.ArrayList;
 import java.util.FormatFlagsConversionMismatchException;
@@ -39,11 +44,11 @@ public class MainActivity extends Activity {
     private ValueAdapter valueAdapter;
 
     private TextWatcher mSearchTw;
-    private RelativeLayout mainLayout;
+    private LinearLayout chartLayout;
 
     private PieChart mChart;
-    private float [] yData = {50,23,10,50, 60};
-    private String [] xData = {"Uk", "Singapor", "America", "China", "Austria"};
+    private BarChart barChart;
+
 
 
 
@@ -53,54 +58,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-
-        mSearchNFilterLv = (ListView) findViewById(R.id.list_view);
-
-        mChart = new PieChart(this);
-
-
-        //setContentView(mChart);
-        mChart.setUsePercentValues(true);
-
-        mChart.setDescription("Total tax rate");
-
-        mChart.setDrawHoleEnabled(true);
-
-        mChart.setHoleColorTransparent(true);
-
-        mChart.setHoleRadius(7);
-
-        mChart.setTransparentCircleRadius(10);
-
-        mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
-
-        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry entry, int i, Highlight highlight) {
-                if (entry == null)
-                    return;
-
-                //Toast.makeText(MainActivity.this,xData[entry.getXIndex()] + "=" + entry.getVal()+ "%", Toast.LENGTH_SHORT.());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-        addData();
-
-
-        Legend legend = mChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        legend.setXEntrySpace(7);
-        legend.setYEntrySpace(5);
-        legend.setMaxSizePercent(0.30f);
-
 
         initUI();
 
@@ -113,53 +70,9 @@ public class MainActivity extends Activity {
 //        mSearchEdt.addTextChangedListener(mSearchTw);
 
 
-    }
-    private  void addData(){
-        ArrayList<Entry> yVals = new ArrayList<>();
-
-        for (int i =0; i < yData.length; i++)
-            yVals.add(new Entry(yData[i],i));
-
-
-        ArrayList<String> xVals = new ArrayList<>();
-        for (int i = 0; i < xData.length; i++)
-            xVals.add(xData[i]);
-
-        PieDataSet pieDataSet = new PieDataSet(yVals, "tax rate");
-        pieDataSet.setSliceSpace(3);
-        pieDataSet.setSelectionShift(5);
-
-        ArrayList<Integer> colours = new ArrayList<>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colours.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colours.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colours.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colours.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colours.add(c);
-
-       colours.add(ColorTemplate.getHoloBlue());
-        pieDataSet.setColors(colours);
-
-        PieData pieData = new PieData(xVals, pieDataSet);
-        pieData.setValueFormatter( new PercentFormatter());
-        pieData.setValueTextSize(11f);
-        pieData.setValueTextColor(Color.GRAY);
-
-        mChart.setData(pieData);
-
-        mChart.highlightValue(null);
-        mChart.invalidate();
-
 
     }
+
     private void initData() {
 
         mStringList=new ArrayList<String>();
