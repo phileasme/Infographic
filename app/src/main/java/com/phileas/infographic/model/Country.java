@@ -11,23 +11,19 @@ import java.util.Map;
 public class Country {
     /** Name of the country and it's id **/
     private String name;
-    private String id;
 
 
     /**
      * Map of unique indicators
-     *                   (Year/Indicator) ,Value
-     */
-    private HashMap<Pair<Integer,String>,Double> indicators;
+                        (Year/Indicator),Value */
+    private HashMap<Pair<Integer,String>,String> indicators;
 
     /**
      * Country constructor
      * @param name
-     * @param id
      */
-    public Country(String name,String id){
+    public Country(String name){
         this.name = name;
-        this.id = id;
     }
 
     /** Adds an Indicator or replaces the value of a previous one
@@ -36,17 +32,17 @@ public class Country {
      * @param year
      * @param value
      */
-    public void addIndicator(String indicator,int year, double value){
+    public void addIndicator(String indicator,int year,String value){
         Pair<Integer,String> primaryTuple = new Pair<>(year,indicator);
        indicators.put(primaryTuple,value);
     }
 
-    /** Removes all the elements of a certain date
-     *
+    /**
+     * Removes all the elements of a certain date
      * @param year
      */
     public void removeYear(int year){
-        for(Map.Entry<Pair<Integer,String>,Double> entry : indicators.entrySet()){
+        for(Map.Entry<Pair<Integer,String>,String> entry : indicators.entrySet()){
             Pair<Integer,String> pair = entry.getKey();
             if((pair.first) == year){
                 indicators.remove(pair);
@@ -55,10 +51,10 @@ public class Country {
     }
 
     /**
-     *  Retrieve the list of indicators
+     * Retrieve the list of indicators
      * @return  indicators
      */
-    public  HashMap<Pair<Integer,String>,Double> getIndicators(){
+    public  HashMap<Pair<Integer,String>,String> getIndicators(){
         return indicators;
     }
 
@@ -71,11 +67,4 @@ public class Country {
         return name;
     }
 
-    /**
-     * Retrieve the Id of the country
-     * @return
-     */
-    public String getId(){
-        return id;
-    }
 }
