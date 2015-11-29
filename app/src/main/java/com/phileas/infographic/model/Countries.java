@@ -45,7 +45,7 @@ public class Countries {
      */
     public void updateCountries(Country country) {
         for(Country c : countries){
-            if( c.getId().equals(country.getId())){
+            if( c.getName().equals(country.getName())){
                 c = country;
             }
             else if(c.equals(countries.get(countries.size()-1))){
