@@ -3,11 +3,8 @@ package com.phileas.infographic.controller;
 import android.app.Activity;
 import android.graphics.Color;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -24,35 +21,34 @@ import java.util.ArrayList;
  */
 public class Charts extends Activity {
 
-    private PieChart mChart;
+    private PieChart pieChart;
 
     private float [] yData;
     private String [] xData;
 
-   // private float [] yData = {50,23,10,50, 60};
-   // private String [] xData = {"Uk", "Singapor", "America", "China", "Austria"};
 
-    public Charts(float yData, String xData){
+    public Charts(float [] yData, String []xData){
         xData = xData;
         yData = yData;
 
-        mChart = (PieChart) findViewById(R.id.pieChart);
-        mChart.setUsePercentValues(true);
-        mChart.setDescription("Total tax rate");
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColorTransparent(true);
-        mChart.setHoleRadius(7);
-        mChart.setTransparentCircleRadius(10);
-        mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        pieChart = (PieChart) findViewById(R.id.pieChart);
+        pieChart.setUsePercentValues(true);
+        pieChart.setDescription("Total tax rate");
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColorTransparent(true);
+        pieChart.setHoleRadius(7);
+        pieChart.setTransparentCircleRadius(10);
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
 
-        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry entry, int i, Highlight highlight) {
                 if (entry == null)
                     return;
                 //  Toast.makeText(MainActivity.this,xData[entry.getXIndex()] + "=" + entry.getVal()+ "%", Toast.LENGTH_SHORT
             }
+
             @Override
             public void onNothingSelected() {
 
@@ -61,7 +57,7 @@ public class Charts extends Activity {
 
         addData();
 
-        Legend legend = mChart.getLegend();
+        Legend legend = pieChart.getLegend();
         legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
@@ -110,10 +106,9 @@ public class Charts extends Activity {
         pieData.setValueTextSize(11f);
         pieData.setValueTextColor(Color.GRAY);
 
-        mChart.setData(pieData);
-
-        mChart.highlightValue(null);
-        mChart.invalidate();
+        pieChart.setData(pieData);
+        pieChart.highlightValue(null);
+        pieChart.invalidate();
 
 
     }

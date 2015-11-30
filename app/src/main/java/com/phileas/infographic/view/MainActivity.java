@@ -50,6 +50,8 @@ public class MainActivity extends Activity {
     private BarChart barChart;
 
 
+    private float [] yData = {50,23,10,50, 60};
+    private String [] xData = {"Uk", "Singapor", "America", "China", "Austria"};
 
 
     @Override
@@ -58,6 +60,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        // provide data
+        Charts charts = new Charts(yData, xData);
+
+
 
         initUI();
 
