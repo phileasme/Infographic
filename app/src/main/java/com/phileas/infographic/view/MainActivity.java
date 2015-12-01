@@ -1,5 +1,7 @@
 package com.phileas.infographic.view;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,8 @@ import android.widget.ListView;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.ValueAdapter;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,4 +107,6 @@ public class MainActivity extends AppCompatActivity {
         mSearchEdt=(EditText) findViewById(R.id.txt_search);
     }
 
-}
+
+        }
+  
