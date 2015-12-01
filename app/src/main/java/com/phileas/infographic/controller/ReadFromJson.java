@@ -18,11 +18,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * Created by Peace on 26/11/2015.
- */
-
-/**
  * Local json file reader
+ *@Author : Phileas Hocquard
  */
 public class ReadFromJson {
 
@@ -45,8 +42,8 @@ public class ReadFromJson {
     }
 
     /**
-     *
-     * @return
+     *Method that matches the required information from a json file to a country.
+     * @return Map of a specific indicator for multiple countries.
      */
     public  HashMap<String,HashMap<Pair<Integer,String>,String>>  loadJSONFromAsset() {
 
@@ -56,7 +53,7 @@ public class ReadFromJson {
             try {
 
                 String bufferString = "";
-                is = currentContext.getAssets().open(filename);
+                 is = currentContext.getAssets().open(filename);
                 br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 int bufferLength;
                 while ((bufferString = br.readLine()) != null) {
@@ -85,7 +82,7 @@ public class ReadFromJson {
                 JSONObject countryField = country.getJSONObject("country");
                 JSONObject indicatorField = country.getJSONObject("indicator");
 
-                // Gets the country name
+                // Gets the country's name,indicator,value and the year of the indicator's value.
                 String name = countryField.getString("value");
                 String indicator = indicatorField.getString("id");
                 String value = country.getString("value");
@@ -103,11 +100,6 @@ public class ReadFromJson {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        for(String a : countrySpecificIndex.keySet()){
-            for(Pair<Integer, String> b :countrySpecificIndex.get(a).keySet()){
-                Log.i("country, value",a+" value: "+countrySpecificIndex.get(a).get(b));
-            }
         }
     return countrySpecificIndex;
     }

@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Peace on 26/11/2015.
+ * Class definition of a Country.
+ * @Author: Phileas Hocquard
  */
 public class Country {
-    /** Name of the country and it's id **/
+
+    /** Name of the country **/
     private String name;
 
 
@@ -24,17 +26,21 @@ public class Country {
      */
     public Country(String name){
         this.name = name;
+        indicators = new HashMap<>();
     }
 
     /** Adds an Indicator or replaces the value of a previous one
      *
-     * @param indicator
-     * @param year
      * @param value
      */
-    public void addIndicator(String indicator,int year,String value){
-        Pair<Integer,String> primaryTuple = new Pair<>(year,indicator);
+    public void addIndicator(Integer date,String indicator,String value){
+        Pair<Integer,String> primaryTuple = new Pair<Integer,String>(date,indicator);
+
        indicators.put(primaryTuple,value);
+    }
+
+    public void addMultipleIndicators(HashMap<Pair<Integer,String>,String> val){
+        indicators.putAll(val);
     }
 
     /**
@@ -58,6 +64,16 @@ public class Country {
         return indicators;
     }
 
+    /**
+     * Method that retrieves a specific Indicators string value
+     * @param date
+     * @param indicatorName
+     * @return String value of an Indicator
+     */
+    public String getIndicator(Integer date,String indicatorName){
+        Pair<Integer,String> primaryTuple = new Pair<Integer,String>(date,indicatorName);
+        return indicators.get(primaryTuple);
+    }
 
     /**
      * Retrieve the name of the country
@@ -66,5 +82,7 @@ public class Country {
     public String getName(){
         return name;
     }
+
+
 
 }
