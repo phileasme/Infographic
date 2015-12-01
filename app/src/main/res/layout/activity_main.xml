@@ -16,7 +16,12 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:background="@drawable/search_border">
-
+        <TextView
+            android:id="@+id/output"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:singleLine="false"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
