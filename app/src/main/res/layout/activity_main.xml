@@ -35,10 +35,14 @@
 
         <ListView
             android:background="@color/colorWhite"
-            android:layout_width="100dp"
+            android:layout_width="170dp"
             android:layout_height="fill_parent"
             android:id="@+id/list_view"
             android:layout_below="@+id/txt_search"
+            android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/txt_search"></ListView>
+
+
+
     </LinearLayout>
 </RelativeLayout>

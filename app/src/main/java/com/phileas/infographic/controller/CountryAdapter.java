@@ -10,25 +10,26 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.phileas.infographic.R;
+import com.phileas.infographic.model.Country;
 
 import java.util.ArrayList;
-public class ValueAdapter extends BaseAdapter implements Filterable {
+public class CountryAdapter extends BaseAdapter implements Filterable {
 
-    private ArrayList<String> mStringList;
+    private ArrayList<String> countriesList;
 
-    private ArrayList<String> mStringFilterList;
+    private ArrayList<String> filteredCountries;
 
-    private LayoutInflater mInflater;
+    private LayoutInflater layoutInflater;
 
     private ValueFilter valueFilter;
 
-    public ValueAdapter(ArrayList<String> mStringList,Context context) {
+    public CountryAdapter(ArrayList<String> countriesList, Context context) {
 
-        this.mStringList=mStringList;
+        this.countriesList=countriesList;
 
-        this.mStringFilterList=mStringList;
+        this.filteredCountries=countriesList;
 
-        mInflater=LayoutInflater.from(context);
+        layoutInflater=LayoutInflater.from(context);
 
         getFilter();
     }
@@ -37,14 +38,14 @@ public class ValueAdapter extends BaseAdapter implements Filterable {
     @Override
     public int getCount() {
 
-        return mStringList.size();
+        return countriesList.size();
     }
 
     //Get the data item associated with the specified position in the data set.
     @Override
     public Object getItem(int position) {
 
-        return mStringList.get(position);
+        return countriesList.get(position);
     }
 
     //Get the row id associated with the specified position in the list.
@@ -58,31 +59,32 @@ public class ValueAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Holder viewHolder;
+        ViewHolder viewHolder;
 
         if(convertView==null) {
 
-            viewHolder=new Holder();
+            viewHolder=new ViewHolder();
 
-            convertView=mInflater.inflate(R.layout.itemlist,null);
+            convertView=layoutInflater.inflate(R.layout.itemlist,null);
 
-            viewHolder.nameTv=(TextView)convertView.findViewById(R.id.txt_listitem);
+            viewHolder.textView=(TextView)convertView.findViewById(R.id.txt_listitem);
 
             convertView.setTag(viewHolder);
 
-        }else{
+        }
+        else {
 
-            viewHolder=(Holder)convertView.getTag();
+            viewHolder=(ViewHolder)convertView.getTag();
         }
 
-        viewHolder.nameTv.setText(mStringList.get(position).toString());
+        viewHolder.textView.setText(countriesList.get(position).toString());
 
         return convertView;
     }
 
-    private class  Holder{
+    private class  ViewHolder{
 
-        TextView nameTv;
+        TextView textView;
     }
 
     //Returns a filter that can be used to constrain data with a filtering pattern.
@@ -111,11 +113,11 @@ public class ValueAdapter extends BaseAdapter implements Filterable {
 
                 ArrayList<String> filterList=new ArrayList<String>();
 
-                for(int i=0;i<mStringFilterList.size();i++){
+                for(int i=0;i<filteredCountries.size();i++){
 
-                    if(mStringFilterList.get(i).contains(constraint)) {
+                    if(filteredCountries.get(i).contains(constraint)) {
 
-                        filterList.add(mStringFilterList.get(i));
+                        filterList.add(filteredCountries.get(i));
 
                     }
                 }
@@ -127,9 +129,9 @@ public class ValueAdapter extends BaseAdapter implements Filterable {
 
             }else{
 
-                results.count=mStringFilterList.size();
+                results.count=filteredCountries.size();
 
-                results.values=mStringFilterList;
+                results.values=filteredCountries;
 
             }
 
@@ -143,7 +145,7 @@ public class ValueAdapter extends BaseAdapter implements Filterable {
         protected void publishResults(CharSequence constraint,
                                       Filter.FilterResults results) {
 
-            mStringList=(ArrayList<String>)results.values;
+            countriesList=(ArrayList<String>)results.values;
 
             notifyDataSetChanged();
 
