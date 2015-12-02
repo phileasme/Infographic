@@ -173,10 +173,10 @@ public class MainActivity extends Activity {
         indEntries.add(ind6);
 
         BarDataSet chnaDataSet = new BarDataSet(chnaEntries, "China");
-        chnaDataSet.setColor(Color.DKGRAY);
+        chnaDataSet.setColor(Color.YELLOW);
 
         BarDataSet indDataSet = new BarDataSet(indEntries, "India");
-        indDataSet.setColor(Color.RED);
+        indDataSet.setColor(Color.GREEN);
 
         dataSets = new ArrayList<>();
         dataSets.add(chnaDataSet);
