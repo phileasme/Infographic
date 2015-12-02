@@ -38,21 +38,41 @@
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/search_border">
+        <TextView
+            android:id="@+id/output"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:singleLine="false"/>
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select two countries"
-            android:id="@+id/searchBox"/>
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listCountries">
+            android:id="@+id/txt_search"
+            tools:context=".SearchAndFilterList"
+            android:hint="Enter Country"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:background="@color/colorWhiteish"/>
 
-        </ListView>
+        <ListView
+            android:background="@color/colorWhite"
+            android:layout_width="170dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/list_view"
+            android:layout_below="@+id/txt_search"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/txt_search"></ListView>
+
+
+
     </LinearLayout>
 
 
