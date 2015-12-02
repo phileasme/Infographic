@@ -58,9 +58,6 @@ public class MainActivity extends Activity {
         listView = (ListView) findViewById(R.id.listCountries);
 
 
-
-
-
         pieChart=(PieChart) findViewById(R.id.pieChart);
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("Total tax rate");
