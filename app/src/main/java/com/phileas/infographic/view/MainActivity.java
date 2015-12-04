@@ -1,20 +1,13 @@
 package com.phileas.infographic.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -28,7 +21,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
@@ -37,13 +29,13 @@ import com.phileas.infographic.model.Countries;
 
 
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
-import java.util.List;
 
 public class MainActivity extends Activity {
     private PieChart pieChart;
     private EditText editText;
     private ListView listView;
+    private CheckBox checkBox;
+    private PieChart pieChart1;
     Countries countries;
     private float [] yData = {50,23,10,50, 60};
     private String [] xData = {"Uk", "Singapor", "America", "China", "Austria"};
@@ -77,8 +69,9 @@ public class MainActivity extends Activity {
                 final CountryAdapter countryAdapter = new CountryAdapter(countryName, this.getBaseContext());
                 listView = (ListView) findViewById(R.id.list_view);
                 listView.setAdapter(countryAdapter);
-                CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
                 editText = (EditText) findViewById(R.id.txt_search);
+                CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
+
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -96,16 +89,19 @@ public class MainActivity extends Activity {
                     }
                 });
 
-
-        pieChart=(PieChart) findViewById(R.id.pieChart);
+        pieChart =(PieChart) findViewById(R.id.pieChart2);
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("Total tax rate");
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColorTransparent(true);
-        pieChart.setHoleRadius(7);
-        pieChart.setTransparentCircleRadius(10);
-        pieChart.setRotationAngle(0);
-        pieChart.setRotationEnabled(true);
+
+
+
+
+//        pieChart.setDrawHoleEnabled(true);
+//        pieChart.setHoleColorTransparent(true);
+//        pieChart.setHoleRadius(7);
+//        pieChart.setTransparentCircleRadius(10);
+//        pieChart.setRotationAngle(0);
+//        pieChart.setRotationEnabled(true);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -124,7 +120,7 @@ public class MainActivity extends Activity {
         addData();
 
         Legend legend = pieChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
         legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
 
@@ -133,11 +129,10 @@ public class MainActivity extends Activity {
         BarData data = new BarData(getXAxis(), getBarDataSet());
         barChart.setData(data);
         barChart.setDescription("Percentage of Poverty increase in the past years");
-        barChart.animateXY(3000, 6000);
-        barChart.setDragEnabled(true);
-        barChart.setPinchZoom(true);
-        barChart.setDrawGridBackground(false);
-
+//        barChart.animateXY(3000, 6000);
+//        barChart.setDragEnabled(true);
+//        barChart.setPinchZoom(true);
+       barChart.setDrawGridBackground(false);
 
     }
 
@@ -174,9 +169,11 @@ public class MainActivity extends Activity {
 
         BarDataSet chnaDataSet = new BarDataSet(chnaEntries, "China");
         chnaDataSet.setColor(Color.YELLOW);
+        chnaDataSet.setBarSpacePercent(0f);
 
         BarDataSet indDataSet = new BarDataSet(indEntries, "India");
         indDataSet.setColor(Color.GREEN);
+        chnaDataSet.setBarSpacePercent(0f);
 
         dataSets = new ArrayList<>();
         dataSets.add(chnaDataSet);
@@ -240,12 +237,12 @@ public class MainActivity extends Activity {
         pieData.setValueTextColor(Color.GRAY);
 
         pieChart.setData(pieData);
+
         pieChart.highlightValue(null);
         pieChart.invalidate();
 
 
     }
-
 
 
 
