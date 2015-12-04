@@ -114,6 +114,7 @@ public class CountryAdapter extends BaseAdapter implements Filterable {
                 ArrayList<String> filterList=new ArrayList<String>();
 
                 for(int i=0;i<filteredCountries.size();i++){
+                    
 
                     if(filteredCountries.get(i).contains(constraint)) {
 

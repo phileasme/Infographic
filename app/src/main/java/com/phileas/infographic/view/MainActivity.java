@@ -1,20 +1,13 @@
 package com.phileas.infographic.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -28,17 +21,13 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.ReadAllAssets;
 import com.phileas.infographic.model.Countries;
 
-
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
-import java.util.List;
 
 public class MainActivity extends Activity {
     private PieChart pieChart;
