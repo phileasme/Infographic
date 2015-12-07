@@ -57,7 +57,6 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
         Country country = getItem(position);
 
         viewHolder = null;
-        Log.v("ConvertView", String.valueOf(position));
 
         if(convertView==null) {
             convertView =LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
@@ -77,7 +76,6 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
                         itemChecked[position] = isChecked;
                         countCheck(isChecked);
                         System.out.println("Number of checked "+ checkAccumulator+" ");
-                        Log.i("check", "this");
                 }
             });
 

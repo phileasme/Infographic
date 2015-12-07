@@ -23,6 +23,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
+import com.phileas.infographic.controller.PieChartData;
 import com.phileas.infographic.controller.ReadAllAssets;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
@@ -42,20 +43,18 @@ public class MainActivity extends Activity  {
     private Button btn2015;
     private Button btn2014;
 
-    Countries countries;
+    Countries countries = new Countries();
 //    Country countryOne = new Country("Somalia");
 //    Country countryTwo = new Country("Israel");
 //    t m = (float) k;
-    private float [] yData = {50,23,10,50, 60};
-    private String [] xData = {"Uk", "Singapor", "America", "China", "Austria", };
-
+    private float [] yData={5,10};
+    private String [] xData = new String[2];
 
             @Override
             public void onCreate(final Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
-
-                //Returns a defined Countries class filled with indicator information
+           //Returns a defined Countries class filled with indicator information
                 ReadAllAssets retrieveAllLocalCountriesInfo = new ReadAllAssets();
                 countries = retrieveAllLocalCountriesInfo.ReadAllAssetFiles("", this.getBaseContext());
                 /**
@@ -69,6 +68,16 @@ public class MainActivity extends Activity  {
 
                 countryName = countries.getCountries();
 
+
+                Country  countryOne = countryName.get(15);
+                Country countryTwo = countryName.get(33);
+
+                xData[0] = countryOne.getName();
+                xData[1] = countryTwo.getName();
+
+                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,"IC.BUS.EASE.XQ");
+
+                yData =  pieChartData.setData();
 
                 countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
                 listView = (ListView) findViewById(R.id.list_view);
@@ -129,8 +138,8 @@ public class MainActivity extends Activity  {
         addData();
 
         Legend legend = pieChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
-        legend.setXEntrySpace(7);
+                legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+                legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
     }
 
