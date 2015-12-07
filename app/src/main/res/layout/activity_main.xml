@@ -43,28 +43,30 @@ xmlns:tools="http://schemas.android.com/tools"
             android:layout_alignParentLeft="true"
             android:layout_alignStart="@+id/txt_search"
             ></ListView>
+
     </LinearLayout>
 
-
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2015"
+        android:text="2015"
+        android:layout_alignBottom="@id/linearLayout"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2014"
+        android:text="2014"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/button2015" />
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart2"
         android:layout_width="350sp"
         android:layout_height="400sp"
         android:padding = "50dp"
         android:layout_marginStart="35dp"
-        android:layout_alignBottom="@+id/barChart"
         android:layout_toEndOf="@+id/linearLayout"/>
-
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="350sp"
-        android:layout_height="300sp"
-        android:nestedScrollingEnabled="true"
-        android:layout_marginStart="41dp"
-        android:layout_alignBottom="@+id/linearLayout"
-         />
 
 
 </RelativeLayout>
