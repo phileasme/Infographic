@@ -26,11 +26,12 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
     private ValueFilter valueFilter;
     private ViewHolder viewHolder;
     private boolean[] itemChecked;
-    int checked=0;
+    int checkAccumulator;
 
 
     public CountryAdapter(Context context, int resource, ArrayList<Country> a) {
         super(context, resource,a);
+        checkAccumulator=0;
 
         for(int i=0; i<a.size(); i++)
         {
@@ -74,6 +75,9 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                         itemChecked[position] = isChecked;
+                        countCheck(isChecked);
+                        System.out.println("Number of checked "+ checkAccumulator+" ");
+                        Log.i("check", "this");
                 }
             });
 
@@ -101,6 +105,11 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
         }
 
         return valueFilter;
+    }
+
+    private void countCheck(boolean isChecked) {
+
+        checkAccumulator += isChecked ? 1 : -1 ;
     }
 
 
@@ -159,5 +168,6 @@ public class CountryAdapter extends ArrayAdapter<Country> implements Filterable 
         }
 
     }
+
 
 }
