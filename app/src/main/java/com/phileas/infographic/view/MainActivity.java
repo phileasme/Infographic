@@ -85,7 +85,7 @@ public class MainActivity extends Activity  {
                 xData[0] = countryOne.getName();
                 xData[1] = countryTwo.getName();
 
-                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,"IC.BUS.EASE.XQ");
+                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,2015,"IC.BUS.EASE.XQ");
 
                 yData =  pieChartData.setData();
 
@@ -144,6 +144,7 @@ public class MainActivity extends Activity  {
                     pieChart =(PieChart) findViewById(R.id.pieChart2);
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("Total tax rate");
+                pieChart.setDescriptionTextSize(15);
 
 
 
@@ -172,7 +173,8 @@ public class MainActivity extends Activity  {
         addData();
 
         Legend legend = pieChart.getLegend();
-                legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+                legend.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
+                legend.setTextSize(12);
                 legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
     }
