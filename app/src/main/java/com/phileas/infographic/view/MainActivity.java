@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -65,12 +66,21 @@ public class MainActivity extends Activity  {
                  *                  Once you have made the UIMainController of course.
                  */
 
+                Country  countryOne;
+                Country countryTwo;
+                TextView indicator1 = (TextView)findViewById(R.id.indicator1);
+                TextView indicator2 = (TextView)findViewById(R.id.indicator2);
+                TextView indicator3 = (TextView)findViewById(R.id.indicator3);
+                TextView indicator4 = (TextView)findViewById(R.id.indicator4);
+                TextView indicator5 = (TextView)findViewById(R.id.indicator5);
+                TextView indicator6 = (TextView)findViewById(R.id.indicator6);
+
 
                 countryName = countries.getCountries();
 
 
-                Country  countryOne = countryName.get(15);
-                Country countryTwo = countryName.get(33);
+                countryOne = countryName.get(6);
+                countryTwo = countryName.get(8);
 
                 xData[0] = countryOne.getName();
                 xData[1] = countryTwo.getName();
@@ -78,6 +88,30 @@ public class MainActivity extends Activity  {
                 PieChartData pieChartData = new PieChartData(countryOne,countryTwo,"IC.BUS.EASE.XQ");
 
                 yData =  pieChartData.setData();
+
+
+//                Before button click set text to..
+//                indicator1.setText("Choose a date");
+//                indicator2.setText("Choose a date");
+//                indicator3.setText("Choose a date");
+//                indicator4.setText("Choose a date");
+//                indicator5.setText("Choose a date");
+//                indicator6.setText("Choose a date");
+
+
+                String ind1 = "IC.BUS.NREG"; String ind2 = "IC.REG.DURS";
+                String ind3 = "IC.REG.PROC"; String ind4 = "IC.TAX.DURS";
+                String ind5 = "IC.TAX.TOTL.CP.ZS"; String ind6 = "IC.BUS.EASE.XQ";
+
+
+                indicator1.setText(countryOne.getName() + " " +countryOne.getIndicator(2015, ind1) + ", " + countryTwo.getName() + " " + countryTwo.getIndicator(2015, ind1));
+                indicator2.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind2) + " days, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind2)+ " days.");
+                indicator3.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind3) + ", "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind3));
+                indicator4.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind4) + " hours, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind4)+" hours.");
+                indicator5.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind5) + "%, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind5)+"%.");
+                indicator6.setText(countryOne.getName() + " " + countryOne.getIndicator(2015, ind6) + ", " + countryTwo.getName() + " " + countryTwo.getIndicator(2015, ind6));
+
+
 
                 countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
                 listView = (ListView) findViewById(R.id.list_view);
