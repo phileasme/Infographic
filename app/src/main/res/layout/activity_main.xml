@@ -68,5 +68,17 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_marginStart="35dp"
         android:layout_toEndOf="@+id/linearLayout"/>
 
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/nullValueTv"
+        android:layout_toRightOf="@id/linearLayout"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="100dp"
+        android:textStyle="bold|italic"
+        android:textColor="#010101" />
+
 
 </RelativeLayout>

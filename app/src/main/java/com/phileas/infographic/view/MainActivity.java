@@ -1,5 +1,6 @@
 package com.phileas.infographic.view;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -38,7 +41,9 @@ public class MainActivity extends Activity  {
     private CountryAdapter countryAdapter;
     private Button btn2015;
     private Button btn2014;
-    private int year=2015;
+    private int year=2014;
+    private PieChartData pieChartData;
+    private TextView nullValues;
 
     Countries countries = new Countries();
     private float [] yData={5,10};
@@ -63,8 +68,8 @@ public class MainActivity extends Activity  {
                 countryName = countries.getCountries();
 
 
-                Country  countryOne = countryName.get(15);
-                Country countryTwo = countryName.get(30);
+                Country  countryOne = countryName.get(0);
+                Country countryTwo = countryName.get(4);
 
                 xData[0] = countryOne.getName();
                 xData[1] = countryTwo.getName();
@@ -98,8 +103,10 @@ public class MainActivity extends Activity  {
                 editText = (EditText) findViewById(R.id.txt_search);
                 textView = (TextView) findViewById(R.id.txt_listitem1);
                 checkBox = (CheckBox) findViewById(R.id.checkbox);
+                nullValues= (TextView) findViewById(R.id.nullValueTv);
+                nullValues.setVisibility(View.INVISIBLE);
 
-                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
+                pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
                 yData =  pieChartData.setData();
 
                 editText.addTextChangedListener(new TextWatcher() {
@@ -129,6 +136,21 @@ public class MainActivity extends Activity  {
                 legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
                 legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
+               if(pieChartData.getNullValues()){
+                   pieChart.setVisibility(View.INVISIBLE);
+                   nullValues.setText("Unfortunately, there is no data for the exports " +
+                           "of goods and services for the chosen countries.");
+                   nullValues.setVisibility(View.VISIBLE);
+
+               }
+                else if(pieChartData.getNullValue()){
+                   pieChart.setVisibility(View.INVISIBLE);
+                   nullValues.setText("Unfortunately, there is no data for the exports " +
+                           "of goods and services for " + pieChartData.getCountryThatIsNull());
+                   nullValues.setVisibility(View.VISIBLE);
+               }
+
+
     }
 
 
@@ -179,6 +201,7 @@ public class MainActivity extends Activity  {
 
 
     }
+
 
 
 }
