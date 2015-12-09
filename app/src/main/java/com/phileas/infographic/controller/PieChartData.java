@@ -1,17 +1,8 @@
 package com.phileas.infographic.controller;
-
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 import com.phileas.infographic.view.MainActivity;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by elizabetamukanova on 07/12/2015.
@@ -28,20 +19,22 @@ public class PieChartData {
 
     Country country1;
     Country country2;
-    Countries countries;
     String indicator;
     int year;
     float[] values = new float[2];
     MainActivity mainActivity = new MainActivity();
-    private Context context = mainActivity.getBaseContext();
 
 
-    public PieChartData(Country country1, Country country2, int year, String indicator) {
+    public PieChartData(Country country1, Country country2, int year) {
 
         this.country1 = country1;
         this.country2 = country2;
-        this.indicator = indicator;
+        indicator="IC.TAX.TOTL.CP.ZS";
         this.year = year;
+    }
+
+    public PieChartData(){
+
     }
 
 
@@ -108,5 +101,4 @@ public class PieChartData {
         }
         return countryNullName + ". " + countryNotNull;
     }
-
 }
