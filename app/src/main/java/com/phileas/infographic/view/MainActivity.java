@@ -180,7 +180,6 @@ public class MainActivity extends Activity  {
     }
 
 
-
     // add the data to the pie chart
     public void addData(){
 
