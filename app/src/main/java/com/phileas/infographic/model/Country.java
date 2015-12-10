@@ -13,13 +13,12 @@ public class Country {
 
     /** Name of the country **/
     private String name;
-
-
     /**
      * Map of unique indicators
                         (Year/Indicator),Value */
     private HashMap<Pair<Integer,String>,String> indicators;
 
+    private boolean checked;
     /**
      * Country constructor
      * @param name
@@ -82,6 +81,11 @@ public class Country {
     public String getName(){
         return name;
     }
+
+    public void setSelected(boolean checked){this.checked=checked;}
+
+    public boolean isSelected(){return checked;}
+
 
 
 
