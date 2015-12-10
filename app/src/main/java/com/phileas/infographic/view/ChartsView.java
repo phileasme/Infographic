@@ -4,8 +4,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -155,6 +157,27 @@ public class ChartsView extends MainActivity{
         valueSet.add(new BarEntry(Float.parseFloat(countryOneValue), 0));
         valueSet.add(new BarEntry(Float.parseFloat(countryTwoValue), 1));
     }
+
+
+    public void setBarCharts(HorizontalBarChart horizontalBarChart){
+
+        horizontalBarChart.setDescription("");
+
+        XAxis barChartXAxis = horizontalBarChart.getXAxis();
+        barChartXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChartXAxis.setDrawAxisLine(true);
+        barChartXAxis.setDrawGridLines(true);
+        barChartXAxis.setGridLineWidth(0.3f);
+
+        horizontalBarChart.getAxisRight().setEnabled(false);
+        horizontalBarChart.getAxisLeft().setEnabled(false);
+
+        horizontalBarChart.setDrawGridBackground(false);
+
+        horizontalBarChart.getLegend().setEnabled(false);
+    }
+
+
 
 
 }

@@ -44,7 +44,6 @@ public class CountryAdapter extends ArrayAdapter<Country> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Country country = getItem(position);
-        System.out.println(country + "position of country");
         viewHolder = null;
 
         if (convertView == null) {
@@ -64,7 +63,6 @@ public class CountryAdapter extends ArrayAdapter<Country> {
                 itemChecked[position] = isChecked;
 
                 if (isChecked && !country.isSelected()) {
-                    System.out.println(country + "country pos");
                     if (count >= 2) {
                         buttonView.setChecked(false);
                         return;

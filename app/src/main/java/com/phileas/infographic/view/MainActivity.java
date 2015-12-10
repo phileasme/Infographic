@@ -2,18 +2,16 @@ package com.phileas.infographic.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.PieDataSet;
-
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.ReadAllAssets;
@@ -34,15 +32,12 @@ public class MainActivity extends Activity {
     private int year=2015;
     private Pair<Country,Country> countryPair;
     Countries countries = new Countries();
-    private float [] yData;
-    private String [] xData = new String[2];
     private Country countryOne;
     private Country countryTwo;
     private CheckBox checkBox;
     private TextView textView;
     public TextView nullValues;
     private ChartsView chartsView;
-    private PieDataSet pieDataSet;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -58,13 +53,16 @@ public class MainActivity extends Activity {
          * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
          *                  Once you have made the UIMainController of course.
          */
-
-
+        int counter = 0;
+        for(Country country : countries.getCountries()){
+            Log.i("country", "" + country.getName() + " " + counter);
+            counter++;
+        }
 
         countryPair = new Pair<>(countryOne,countryTwo);
         countryName = countries.getCountries();
 
-        countryOne = countryName.get(15);
+        countryOne = countryName.get(181);
         countryTwo = countryName.get(3);
 
         countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
@@ -108,8 +106,6 @@ public class MainActivity extends Activity {
         pieChart.setDescription("Total tax rate (% of commercial profits)");
         chartsView.pieChartLegend(pieChart);
 
-
-
     }
 
     public void populateCharts() {
@@ -127,32 +123,8 @@ public class MainActivity extends Activity {
         timeToStartBusinessChart.setData(chartsView.dataBarChart("IC.REG.DURS"));
         timeToStartBusinessChart.invalidate();
         registerBusiness.invalidate();
-        setBarCharts(timeToStartBusinessChart);
-        setBarCharts(registerBusiness);
+        chartsView.setBarCharts(timeToStartBusinessChart);
+        chartsView.setBarCharts(registerBusiness);
 
     }
-
-
-    public void setBarCharts(HorizontalBarChart horizontalBarChart){
-
-        horizontalBarChart.setDescription("");
-
-        XAxis barChartXAxis = horizontalBarChart.getXAxis();
-        barChartXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChartXAxis.setDrawAxisLine(true);
-        barChartXAxis.setDrawGridLines(true);
-        barChartXAxis.setGridLineWidth(0.3f);
-
-        horizontalBarChart.getAxisRight().setEnabled(false);
-        horizontalBarChart.getAxisLeft().setEnabled(false);
-
-        horizontalBarChart.setDrawGridBackground(false);
-
-        horizontalBarChart.getLegend().setEnabled(false);
-    }
-
-
-
-
-
 }

@@ -24,15 +24,6 @@ xmlns:tools="http://schemas.android.com/tools"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:singleLine="false"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_search"
-            tools:context=".SearchAndFilterList"
-            android:hint="Enter Country"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right"
-            android:background="@color/colorWhiteish"/>
 
         <ListView
             android:background="@color/colorWhite"
@@ -82,7 +73,7 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="300sp"
         android:layout_height="100sp"
         android:padding = "50dp"
-        android:layout_below="@+id/timeToStartBusinessChart"
+        android:layout_toRightOf="@+id/timeToStartBusinessChart"
          />
 
     <TextView
