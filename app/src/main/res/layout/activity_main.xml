@@ -484,6 +484,18 @@
         android:orientation="vertical"
         android:id="@+id/indicatorlayout">
 
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/nullValueTv"
+        android:layout_toRightOf="@id/linearLayout"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="100dp"
+        android:textStyle="bold|italic"
+        android:textColor="#010101" />
+
     </LinearLayout>
 
 </LinearLayout>

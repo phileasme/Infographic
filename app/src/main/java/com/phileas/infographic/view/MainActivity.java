@@ -1,6 +1,6 @@
 package com.phileas.infographic.view;
-
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -28,7 +27,6 @@ import com.phileas.infographic.controller.PieChartData;
 import com.phileas.infographic.controller.ReadAllAssets;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
-
 import java.util.ArrayList;
 
 public class MainActivity extends Activity  {
@@ -43,11 +41,11 @@ public class MainActivity extends Activity  {
     private CountryAdapter countryAdapter;
     private Button btn2015;
     private Button btn2014;
+    private int year=2014;
+    private PieChartData pieChartData;
+    private TextView nullValues;
 
     Countries countries = new Countries();
-//    Country countryOne = new Country("Somalia");
-//    Country countryTwo = new Country("Israel");
-//    t m = (float) k;
     private float [] yData={5,10};
     private String [] xData = new String[2];
 
@@ -75,17 +73,16 @@ public class MainActivity extends Activity  {
                 TextView indicator5 = (TextView)findViewById(R.id.indicator5);
                 TextView indicator6 = (TextView)findViewById(R.id.indicator6);
 
-
                 countryName = countries.getCountries();
 
 
-                countryOne = countryName.get(6);
-                countryTwo = countryName.get(8);
+                Country  countryOne = countryName.get(15);
+                Country countryTwo = countryName.get(30);
 
                 xData[0] = countryOne.getName();
                 xData[1] = countryTwo.getName();
 
-                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,2015,"IC.BUS.EASE.XQ");
+                countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
 
                 yData =  pieChartData.setData();
 
@@ -116,13 +113,17 @@ public class MainActivity extends Activity  {
                 countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
                 listView = (ListView) findViewById(R.id.list_view);
                 listView.setAdapter(countryAdapter);
-                listView.setTextFilterEnabled(true);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 btn2014 = (Button) findViewById(R.id.button2014);
                 btn2015 = (Button) findViewById(R.id.button2015);
                 editText = (EditText) findViewById(R.id.txt_search);
                 textView = (TextView) findViewById(R.id.txt_listitem1);
                 checkBox = (CheckBox) findViewById(R.id.checkbox);
+                nullValues= (TextView) findViewById(R.id.nullValueTv);
+                nullValues.setVisibility(View.INVISIBLE);
+
+                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
+                yData =  pieChartData.setData();
 
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -141,43 +142,33 @@ public class MainActivity extends Activity  {
                     }
                 });
 
-                    pieChart =(PieChart) findViewById(R.id.pieChart2);
-        pieChart.setUsePercentValues(true);
-        pieChart.setDescription("Total tax rate");
-                pieChart.setDescriptionTextSize(15);
-
-
-
-
-//        pieChart.setDrawHoleEnabled(true);
-//        pieChart.setHoleColorTransparent(true);
-//        pieChart.setHoleRadius(7);
-//        pieChart.setTransparentCircleRadius(10);
-//        pieChart.setRotationAngle(0);
-//        pieChart.setRotationEnabled(true);
-
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry entry, int i, Highlight highlight) {
-                if (entry == null)
-                    return;
-                //  Toast.makeText(MainActivity.this,xData[entry.getXIndex()] + "=" + entry.getVal()+ "%", Toast.LENGTH_SHORT
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
+                pieChart =(PieChart) findViewById(R.id.pieChart2);
+                pieChart.setUsePercentValues(true);
+                pieChart.setDescription("Exports of goods and services (% of GDP)");
 
         addData();
 
         Legend legend = pieChart.getLegend();
-                legend.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
-                legend.setTextSize(12);
+                legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
                 legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
+               if(pieChartData.getNullValues()){
+                   pieChart.setVisibility(View.INVISIBLE);
+                   nullValues.setText("Unfortunately, there is no data for the exports " +
+                           "of goods and services for the chosen countries.");
+                   nullValues.setVisibility(View.VISIBLE);
+
+               }
+                else if(pieChartData.getNullValue()){
+                   pieChart.setVisibility(View.INVISIBLE);
+                   nullValues.setText("Unfortunately, there is no data for the exports " +
+                           "of goods and services for " + pieChartData.getCountryThatIsNull());
+                   nullValues.setVisibility(View.VISIBLE);
+               }
+
+
     }
+
 
 
     // add the data to the pie chart
@@ -217,7 +208,7 @@ public class MainActivity extends Activity  {
         PieData pieData = new PieData(xVals, pieDataSet);
         pieData.setValueFormatter(new PercentFormatter());
         pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.GRAY);
+        pieData.setValueTextColor(Color.BLACK);
 
         pieChart.setData(pieData);
 
