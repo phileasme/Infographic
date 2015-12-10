@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MainActivity extends Activity {
-
+    private HorizontalBarChart horizontalBarChart;
     private PieChart pieChart;
     private ListView listView;
     private ArrayList<Country> countryName;
@@ -134,6 +136,9 @@ public class MainActivity extends Activity {
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("Exports of goods and services (% of GDP)");
         pieChartView.pieChartLegend(pieChart);
+
+
+        horizontalBarChart = (HorizontalBarChart) findViewById(R.id.barChart);
 
 
 

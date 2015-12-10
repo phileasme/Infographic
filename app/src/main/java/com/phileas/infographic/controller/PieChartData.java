@@ -19,23 +19,18 @@ public class PieChartData {
 
     Country country1;
     Country country2;
-    String indicator;
+    String indicator ="IC.TAX.TOTL.CP.ZS";
+
     int year;
     float[] values = new float[2];
-    MainActivity mainActivity = new MainActivity();
-
 
     public PieChartData(Country country1, Country country2, int year) {
 
         this.country1 = country1;
         this.country2 = country2;
-        indicator="IC.TAX.TOTL.CP.ZS";
         this.year = year;
     }
 
-    public PieChartData(){
-
-    }
 
 
     public float[] setData() throws NumberFormatException, NullPointerException {

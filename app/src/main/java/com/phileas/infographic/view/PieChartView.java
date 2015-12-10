@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -102,5 +104,13 @@ public class PieChartView extends MainActivity{
         }
 
 
+    }
+    public ArrayList<BarDataSet> dataBarChart(){
+        ArrayList<BarDataSet>  dataSets = null;
+
+        ArrayList<BarEntry> valueSet =  new ArrayList<>();
+
+
+        return dataSets;
     }
 }
