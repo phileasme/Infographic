@@ -10,9 +10,11 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
@@ -21,18 +23,20 @@ import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class MainActivity extends Activity {
 
     private ListView listView;
     private ArrayList<Country> countriesArray;
-    private CountryAdapter countryAdapter;
-    private boolean itemChecked[] ;
     Countries countries = new Countries();
-    private Pair<Country,Country> selectedCountries;
+    private Country countryA;
+    private Country countryB;
     private  ReadAllAssets retrieveAllLocalCountriesInfo;
-    private ArrayList<String> name;
+    private ArrayList<String> countriesArrayName;
     private int count = 0;
 
     @Override
@@ -50,55 +54,66 @@ public class MainActivity extends Activity {
          * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
          *                  Once you have made the UIMainController of course.
          */
-        countriesArray = countries.getCountries();
+        countriesArray = new ArrayList();
+        countriesArrayName = new ArrayList();
+                countriesArray = countries.getCountries();
+        for( Country country : countriesArray){
+            countriesArrayName.add(""+country.getName());
+            Log.i("Bumb",""+country.getName());
+        }
+        Collections.sort(countriesArrayName);
 
-        countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countriesArray);
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countriesArrayName );
         listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(countryAdapter);
+        listView.setAdapter(adapter);
 
-        itemChecked = countryAdapter.itemChecked;
-
-        listView.setItemsCanFocus(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
-                Country currentCountry =countriesArray.get(position);
-                if (count == 0 && !currentCountry.isSelected()) {
-                    countriesArray.get(position).setSelected(true);
-                    view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                String item = ((TextView) view).getText().toString();
+                if (count == 0) {
+                    countryA = getCountryByName(countriesArrayName.get(position));
                     TextView txCountryA = (TextView) findViewById(R.id.tvCountryA);
-                    txCountryA.setText(currentCountry.getName());
+                    txCountryA.setText(countriesArrayName.get(position));
+                    Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
                     count++;
-                } else if (count == 1 && !currentCountry.isSelected()) {
-                    countriesArray.get(position).setSelected(true);
+                } else if (count == 1) {
+                    if (countryA == null) {
+                        countryA = getCountryByName(countriesArrayName.get(position));
+                        TextView txCountryA = (TextView) findViewById(R.id.tvCountryA);
+                        txCountryA.setText(countriesArrayName.get(position));
+                        Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
+                    } else if(countryB == null){
+                        countryB = getCountryByName(countriesArrayName.get(position));
+                         TextView txCountryB = (TextView) findViewById(R.id.tvCountryB);
+                        txCountryB.setText(countriesArrayName.get(position));
+                        Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
+                     }
                     count++;
-                    view.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    TextView txCountryB = (TextView) findViewById(R.id.tvCountryB);
-                    txCountryB.setText(countriesArray.get(position).getName());
-
-                } else if (countriesArray.get(position).isSelected()) {
-                    count--;
-                    countriesArray.get(position).setSelected(false);
-
-                    view.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                }
-                if (count == 2) {
-                    Stack<Country> countries2 = new Stack<Country>();
-                    for (Country x : countriesArray) {
-                        if (x.isSelected()) countries2.push(x);
+                    /**Method thing(countryA,countryB) **/
+                } else if (count >= 2 && (countriesArrayName.get(position).equals(countryA.getName()) ||
+                        countriesArrayName.get(position).equals(countryB.getName()))) {
+                    if (countriesArrayName.get(position).equals(countryA.getName())) {
+                        countryA = null;
+                    } else {
+                        countryB = null;
                     }
-                    selectedCountries = new Pair(countries2.pop(), countries2.pop());
-                    Log.i("countrie12", "" + selectedCountries.first.getName() + " " + selectedCountries.second.getName());
-                    /** TODO: USE METHODS HERE !! **/
-
+                    count --;
                 }
 
-            }
+
+         }
         });
 
     }
 
+    private Country getCountryByName(String countryName){
+       for (Country cx : countriesArray) {
+         if (cx.getName().equals(countryName)) return cx;}
+        return null;
+    }
 
 
 
