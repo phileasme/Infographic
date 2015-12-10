@@ -80,14 +80,6 @@ public class ChartsView extends MainActivity{
 
 
     }
-    //Draws the legend for the pieChart
-    public void pieChartLegend(PieChart pieChart) {
-        this.pieChart = pieChart;
-        Legend legend = pieChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
-        legend.setXEntrySpace(7);
-        legend.setYEntrySpace(5);
-    }
 
     //Checks if there are null values, replaces the pieChart with a textView if that is the case
     public void checkNull(PieChart pieChart, TextView nullValues) {
@@ -136,7 +128,7 @@ public class ChartsView extends MainActivity{
 
         BarData barData = new BarData(xAxis, dataSets);
         barData.setValueTextSize(10f);
-        yValueBarDataSet.setColors(this.setColors());
+        yValueBarDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
 
         return barData;
     }

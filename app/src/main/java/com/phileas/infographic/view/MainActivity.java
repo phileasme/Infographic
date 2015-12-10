@@ -11,9 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.ReadAllAssets;
+import com.phileas.infographic.controller.TextBoxController;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 
@@ -21,22 +23,25 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private HorizontalBarChart timeToStartBusinessChart, registerBusinessChart;
+    private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
     private PieChart pieChart;
     private ListView listView;
     private ArrayList<Country> countryName;
     private CountryAdapter countryAdapter;
     private Button btn2015;
     private Button btn2014;
+    TextBoxController indicators;
     private int year=2015;
     private Pair<Country,Country> countryPair;
     Countries countries = new Countries();
-    private Country country1;
-    private Country country2;
+    private Country countryOne;
+    TextView indicator1, indicator2, indicator3;
+    private Country countryTwo;
     private CheckBox checkBox;
     private TextView textView;
     public TextView nullValues;
     private ChartsView chartsView;
+    ArrayList<TextView> collectionOfTextviews;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -58,12 +63,21 @@ public class MainActivity extends Activity {
             counter++;
         }
 
+        countryPair = new Pair<>(countryOne,countryTwo);
         countryName = countries.getCountries();
 
-        country1 = countryName.get(99);
-        country2 = countryName.get(196);
+        countryOne = countryName.get(181);
+        countryTwo = countryName.get(3);
+
+        indicator1 = (TextView)findViewById(R.id.payTaxData);
+        indicator2 = (TextView)findViewById(R.id.newBusinessData);
+        indicator3 = (TextView)findViewById(R.id.easeOfBusinessData);
+
+        collectionOfTextviews= new ArrayList<>();
+        collectionOfTextviews.add(indicator1);collectionOfTextviews.add(indicator2); collectionOfTextviews.add(indicator3);
 
         countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
+
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(countryAdapter);
@@ -77,11 +91,15 @@ public class MainActivity extends Activity {
                 String yearS = (String) btn.getText();
                 if (yearS.equals("2014")) {
                     year = 2014;
-                    populateCharts(country1,country2);
+                    populateCharts();
+                    indicators =  new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
+                    indicators.setText();
                 }
                 else {
                     year = 2015;
-                    populateCharts(country1,country2);
+                    populateCharts();
+                    indicators =  new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
+                    indicators.setText();
                 }
             }
         };
@@ -99,14 +117,14 @@ public class MainActivity extends Activity {
 
 
         pieChart = (PieChart) findViewById(R.id.pieChart2);
-        populateCharts(country1,country2);
+        populateCharts();
         pieChart.setUsePercentValues(true);
-        pieChart.setDescription("Total tax rate (% of commercial profits)");
-        chartsView.pieChartLegend(pieChart);
+        pieChart.setDescription("");
+        pieChart.getLegend().setEnabled(false);
 
     }
 
-    public void populateCharts(Country countryOne, Country countryTwo) {
+    public void populateCharts() {
 
         chartsView = new ChartsView(countryOne, countryTwo, year);
         chartsView.addData();
@@ -114,15 +132,15 @@ public class MainActivity extends Activity {
         pieChart.setData(chartsView.addData());
         pieChart.invalidate();
         timeToStartBusinessChart = (HorizontalBarChart) findViewById(R.id.timeToStartBusinessChart);
-        registerBusinessChart = (HorizontalBarChart) findViewById(R.id.registerBusinessChart);
+        registerBusiness = (HorizontalBarChart) findViewById(R.id.registerBusinessChart);
         chartsView.dataBarChart("IC.REG.DURS");
         chartsView.dataBarChart("IC.REG.PROC");
-        registerBusinessChart.setData(chartsView.dataBarChart("IC.REG.PROC"));
+        registerBusiness.setData(chartsView.dataBarChart("IC.REG.PROC"));
         timeToStartBusinessChart.setData(chartsView.dataBarChart("IC.REG.DURS"));
         timeToStartBusinessChart.invalidate();
-        registerBusinessChart.invalidate();
+        registerBusiness.invalidate();
         chartsView.setBarCharts(timeToStartBusinessChart);
-        chartsView.setBarCharts(registerBusinessChart);
+        chartsView.setBarCharts(registerBusiness);
 
     }
 }
