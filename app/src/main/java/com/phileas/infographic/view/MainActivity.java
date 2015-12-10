@@ -31,6 +31,7 @@ public class MainActivity extends Activity {
     private boolean itemChecked[] ;
     Countries countries = new Countries();
     private Pair<Country,Country> selectedCountries;
+    private  ReadAllAssets retrieveAllLocalCountriesInfo;
     private ArrayList<String> name;
     private int count = 0;
 
@@ -38,10 +39,9 @@ public class MainActivity extends Activity {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        selectedCountries = new Pair(null, null);
 
         //Returns a defined Countries class filled with indicator information
-        ReadAllAssets retrieveAllLocalCountriesInfo = new ReadAllAssets();
+        retrieveAllLocalCountriesInfo = new ReadAllAssets();
         countries = retrieveAllLocalCountriesInfo.ReadAllAssetFiles("", this.getBaseContext());
         /**
          *
@@ -59,25 +59,24 @@ public class MainActivity extends Activity {
 
         itemChecked = countryAdapter.itemChecked;
 
-        Log.i("IDOFSOMETHING", "" + countryAdapter.getItemId(1));
         listView.setItemsCanFocus(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
-
-                Log.i("County", "" + countryAdapter.getItem(position).getName());
-                if (count == 0 && !countriesArray.get(position).isSelected()) {
+                Country currentCountry =countriesArray.get(position);
+                if (count == 0 && !currentCountry.isSelected()) {
+                    countriesArray.get(position).setSelected(true);
                     view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                     TextView txCountryA = (TextView) findViewById(R.id.tvCountryA);
-                    txCountryA.setText(countryAdapter.getItem(position).getName());
+                    txCountryA.setText(currentCountry.getName());
                     count++;
+                } else if (count == 1 && !currentCountry.isSelected()) {
                     countriesArray.get(position).setSelected(true);
-                } else if (count == 1 && !countriesArray.get(position).isSelected()) {
                     count++;
                     view.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     TextView txCountryB = (TextView) findViewById(R.id.tvCountryB);
-                    txCountryB.setText(countryAdapter.getItem(position).getName());
-                    countriesArray.get(position).setSelected(true);
+                    txCountryB.setText(countriesArray.get(position).getName());
+
                 } else if (countriesArray.get(position).isSelected()) {
                     count--;
                     countriesArray.get(position).setSelected(false);
