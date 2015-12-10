@@ -96,7 +96,6 @@ public class MainActivity extends Activity  {
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 btn2014 = (Button) findViewById(R.id.button2014);
                 btn2015 = (Button) findViewById(R.id.button2015);
-                editText = (EditText) findViewById(R.id.txt_search);
                 textView = (TextView) findViewById(R.id.txt_listitem1);
                 checkBox = (CheckBox) findViewById(R.id.checkbox);
                 nullValues= (TextView) findViewById(R.id.nullValueTv);

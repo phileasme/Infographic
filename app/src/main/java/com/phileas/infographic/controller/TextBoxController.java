@@ -1,13 +1,8 @@
 package com.phileas.infographic.controller;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.phileas.infographic.R;
 import com.phileas.infographic.model.Country;
-import com.phileas.infographic.view.MainActivity;
 
 import java.util.ArrayList;
 
@@ -18,11 +13,11 @@ public class TextBoxController {
     Country one;
     Country two;
     int year;
-    TextView indicator1, indicator2, indicator3, indicator4, indicator5;
-    String ind1, ind2, ind3, ind4, ind5;
+    TextView textViewPayTax, textViewNewBusinessReg, textViewEaseOfBusiness, indicator4, indicator5;
+    String indicatorNewBusinessReg, indicatorEaseOfBusiness, indicatorTimePayTax, ind4, ind5;
     ArrayList<TextView> textviews;
     String nameOfCountry, nameOfCountry2;
-    String data1, data2, data3, data4, data5, data6;
+    String country1BusinessData, country1EaseData, country1TaxData, country2BusinessData, country2EaseData, country2TaxData;
     Double data1double, data2double, data3double, data4double, data5double, data6double, data7double, data8double, data9double, data10double;
 
     public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
@@ -35,20 +30,19 @@ public class TextBoxController {
 
     public void setText() {
 
-
         //new business registered
-        ind1 = "IC.BUS.NREG";
+        indicatorNewBusinessReg = "IC.BUS.NREG";
         //ease of doing business
-        ind2 = "IC.BUS.EASE.XQ";
+        indicatorEaseOfBusiness = "IC.BUS.EASE.XQ";
         //time to pay taxes
-        ind3 = "IC.TAX.DURS";
+        indicatorTimePayTax = "IC.TAX.DURS";
 
         //pay tax data
-        indicator1 = textviews.get(0);
+        textViewPayTax = textviews.get(0);
         //new business data
-        indicator2 = textviews.get(1);
+        textViewNewBusinessReg = textviews.get(1);
         //ease of business data
-        indicator3 = textviews.get(2);
+        textViewEaseOfBusiness = textviews.get(2);
 
         nameOfCountry = one.getName();
         nameOfCountry2 = two.getName();
@@ -57,11 +51,11 @@ public class TextBoxController {
 
 
         //setting tax data
-        indicator1.setText(nameOfCountry + " takes " + data1 + " hours and " + nameOfCountry2 + " takes " + data4 + " hours.");
+        textViewPayTax.setText(nameOfCountry + " takes " + country1TaxData + " hours and " + nameOfCountry2 + " takes " + country2TaxData + " hours.");
         //setting ease of business data
-        indicator3.setText(nameOfCountry + " was ranked " + data2 + " and " + nameOfCountry2 + " was ranked " + data5 + ". (1=most business-friendly regulations)");
+        textViewEaseOfBusiness.setText(nameOfCountry + " was ranked " + country1EaseData + " and " + nameOfCountry2 + " was ranked " + country2EaseData + ". (1=most business-friendly regulations)");
         //setting new business data
-        indicator2.setText(nameOfCountry + " has " + data3 + " businesses and " + nameOfCountry2 + " has " + data6 + ".");
+        textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " businesses and " + nameOfCountry2 + " has " + country2BusinessData + ".");
 
 
 
@@ -69,17 +63,21 @@ public class TextBoxController {
 
     public void createText(Country any, Country any1) {
         //getting tax data for country1
-        data1 = any.getIndicator(year, ind3);
+        country1BusinessData = any.getIndicator(year, indicatorNewBusinessReg);
         //getting ease of business data for country 1
-        data2 = any.getIndicator(year, ind2);
+        country1EaseData = any.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business data for country1
-        data3 = any.getIndicator(year, ind1);
+        country1TaxData = any.getIndicator(year, indicatorTimePayTax);
+
+
+
+
         //getting tax data for country2
-        data4 = any.getIndicator(year, ind3);
+        country2BusinessData = any1.getIndicator(year, indicatorNewBusinessReg);
         //getting ease of business data for country 2
-        data5 = any.getIndicator(year, ind2);
+        country2EaseData = any1.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business registered for country2
-        data6 = any1.getIndicator(year, ind1);
+        country2TaxData = any1.getIndicator(year, indicatorTimePayTax);
 
 
        // checkData();
@@ -90,22 +88,22 @@ public class TextBoxController {
 //        changeToDouble();
 //
 //        if (data1double == 0.0) {
-//            data1 = "No data available";
+//            country1BusinessData = "No data available";
 //        }
 //        if (data2double == 0.0) {
-//            data2 = "No data available";
+//            country1EaseData = "No data available";
 //        }
 //        if (data3double == 0.0) {
-//            data3 = "No data available";
+//            country1TaxData = "No data available";
 //        }
 //        if (data4double == 0.0) {
-//            data4 = "No data available";
+//            country2BusinessData = "No data available";
 //        }
 //        if (data5double == 0.0) {
-//            data5 = "No data available";
+//            country2EaseData = "No data available";
 //        }
 //        if (data6double == 0.0) {
-//            data6 = "No data available";
+//            country2TaxData = "No data available";
 //        }
 //        if (data7double == 0.0) {
 //            data7 = "No data available";
@@ -125,44 +123,44 @@ public class TextBoxController {
 //
 //    public void changeToDouble() {
 //        try {
-//        data1double = Double.parseDouble(data1);
-//        data2double = Double.parseDouble(data2);
-//        data3double = Double.parseDouble(data3);
-//        data4double = Double.parseDouble(data4);
-//        data5double = Double.parseDouble(data5);
-//        data6double = Double.parseDouble(data6);
+//        data1double = Double.parseDouble(country1BusinessData);
+//        data2double = Double.parseDouble(country1EaseData);
+//        data3double = Double.parseDouble(country1TaxData);
+//        data4double = Double.parseDouble(country2BusinessData);
+//        data5double = Double.parseDouble(country2EaseData);
+//        data6double = Double.parseDouble(country2TaxData);
 //        data7double = Double.parseDouble(data7);
 //        data8double = Double.parseDouble(data8);
 //        data9double = Double.parseDouble(data9);
 //        data10double = Double.parseDouble(data10);
 //
 //
-//            if (data1.equals("null")) {
+//            if (country1BusinessData.equals("null")) {
 //                data1double = 0.0;
 //            } else {
 //                data1double = data1double - data1double % 0.01;
 //            }
-//            if (data2.equals("null")) {
+//            if (country1EaseData.equals("null")) {
 //                data2double = 0.0;
 //            } else {
 //                data2double = data2double - data2double % 0.01;
 //            }
-//            if (data3.equals("null")) {
+//            if (country1TaxData.equals("null")) {
 //                data3double = 0.0;
 //            } else {
 //                data3double = data3double - data3double % 0.01;
 //            }
-//            if (data4.equals("null")) {
+//            if (country2BusinessData.equals("null")) {
 //                data4double = 0.0;
 //            } else {
 //                data4double = data4double - data4double % 0.01;
 //            }
-//            if (data5.equals("null")) {
+//            if (country2EaseData.equals("null")) {
 //                data5double = 0.0;
 //            } else {
 //                data5double = data5double - data5double % 0.01;
 //            }
-//            if (data6.equals("null")) {
+//            if (country2TaxData.equals("null")) {
 //                data6double = 0.0;
 //            } else {
 //                data6double = data6double - data6double % 0.01;
