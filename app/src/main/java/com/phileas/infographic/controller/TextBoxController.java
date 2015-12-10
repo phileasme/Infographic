@@ -22,8 +22,7 @@ public class TextBoxController {
     String ind1, ind2, ind3, ind4, ind5;
     ArrayList<TextView> textviews;
     String nameOfCountry, nameOfCountry2;
-    String text1, text2, text3, text4, text5;
-    String data1, data2, data3, data4, data5, data6, data7, data8, data9, data10;
+    String data1, data2, data3, data4, data5, data6;
     Double data1double, data2double, data3double, data4double, data5double, data6double, data7double, data8double, data9double, data10double;
 
     public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
@@ -37,43 +36,51 @@ public class TextBoxController {
     public void setText() {
 
 
+        //new business registered
         ind1 = "IC.BUS.NREG";
+        //ease of doing business
         ind2 = "IC.BUS.EASE.XQ";
-        ind3 = "IC.REG.PROC";
-        ind4 = "IC.TAX.DURS";
-        ind5 = "IC.REG.DURS";
+        //time to pay taxes
+        ind3 = "IC.TAX.DURS";
 
+        //pay tax data
         indicator1 = textviews.get(0);
+        //new business data
         indicator2 = textviews.get(1);
+        //ease of business data
         indicator3 = textviews.get(2);
-        indicator4 = textviews.get(3);
-        indicator5 = textviews.get(4);
 
         nameOfCountry = one.getName();
         nameOfCountry2 = two.getName();
 
         createText(one, two);
 
-        indicator1.setText(nameOfCountry + " " + data1 + ", " + nameOfCountry2 + " " + data6);
-        indicator2.setText(nameOfCountry + " " + data2 + " days, " + nameOfCountry2 + " " + data7 + " days.");
-        indicator3.setText(nameOfCountry + " " + data3 + ", " + nameOfCountry2 + " " + data8);
-        indicator4.setText(nameOfCountry + " " + data4 + " hours, " + nameOfCountry2 + " " + data9 + " hours.");
-        indicator5.setText(nameOfCountry + " " + data5 + "%, " + nameOfCountry2 + " " + data10 + "%.");
+
+        //setting tax data
+        indicator1.setText(nameOfCountry + " takes " + data1 + " hours and " + nameOfCountry2 + " takes " + data4 + " hours.");
+        //setting ease of business data
+        indicator3.setText(nameOfCountry + " was ranked " + data2 + " and " + nameOfCountry2 + " was ranked " + data5 + ". (1=most business-friendly regulations\n)");
+        //setting new business data
+        indicator2.setText(nameOfCountry + " has " + data3 + " businesses and " + nameOfCountry2 + " has " + data6 + ".");
+
 
 
     }
 
     public void createText(Country any, Country any1) {
-        data1 = any.getIndicator(year, ind1);
+        //getting tax data for country1
+        data1 = any.getIndicator(year, ind3);
+        //getting ease of business data for country 1
         data2 = any.getIndicator(year, ind2);
-        data3 = any.getIndicator(year, ind3);
-        data4 = any.getIndicator(year, ind4);
-        data5 = any.getIndicator(year, ind5);
+        //getting new business data for country1
+        data3 = any.getIndicator(year, ind1);
+        //getting tax data for country2
+        data4 = any.getIndicator(year, ind3);
+        //getting ease of business data for country 2
+        data5 = any.getIndicator(year, ind2);
+        //getting new business registered for country2
         data6 = any1.getIndicator(year, ind1);
-        data7 = any1.getIndicator(year, ind2);
-        data8 = any1.getIndicator(year, ind3);
-        data9 = any1.getIndicator(year, ind4);
-        data10 = any1.getIndicator(year, ind5);
+
 
        // checkData();
     }

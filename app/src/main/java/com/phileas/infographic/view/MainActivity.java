@@ -1,13 +1,9 @@
 package com.phileas.infographic.view;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,11 +17,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
-import com.phileas.infographic.controller.Animation;
 import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.PieChartData;
 import com.phileas.infographic.controller.ReadAllAssets;
@@ -72,15 +65,10 @@ public class MainActivity extends Activity  {
                  *                  Once you have made the UIMainController of course.
                  */
 
-                imageview = (ImageView) findViewById(R.id.easeAnimation);
-                Animation anim = new Animation(imageview);
-                anim.runAnimationEase();
 
-                indicator1 = (TextView)findViewById(R.id.indicator1);
-                indicator2 = (TextView)findViewById(R.id.indicator2);
-                indicator3 = (TextView)findViewById(R.id.indicator3);
-                indicator4 = (TextView)findViewById(R.id.indicator4);
-                indicator5 = (TextView)findViewById(R.id.indicator5);
+                indicator1 = (TextView)findViewById(R.id.payTaxData);
+                indicator2 = (TextView)findViewById(R.id.newBusinessData);
+                indicator3 = (TextView)findViewById(R.id.easeOfBusinessData);
 
                 countryName = countries.getCountries();
 
@@ -92,7 +80,7 @@ public class MainActivity extends Activity  {
                 xData[1] = countryTwo.getName();
 
                 ArrayList<TextView> i = new ArrayList<>();
-                i.add(indicator1);i.add(indicator2);i.add(indicator3);i.add(indicator4);i.add(indicator5);
+                i.add(indicator1);i.add(indicator2); i.add(indicator3);
 
                 countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
 
@@ -117,26 +105,9 @@ public class MainActivity extends Activity  {
                 pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
                 yData =  pieChartData.setData();
 
-                editText.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        countryAdapter.getFilter().filter(s);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                    }
-                });
-
                 pieChart =(PieChart) findViewById(R.id.pieChart2);
                 pieChart.setUsePercentValues(true);
-                pieChart.setDescription("Exports of goods and services (% of GDP)");
+                pieChart.setDescription("");
 
         addData();
 
