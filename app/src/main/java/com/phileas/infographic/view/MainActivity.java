@@ -32,11 +32,9 @@ public class MainActivity extends Activity {
     private Button btn2014;
     TextBoxController indicators;
     private int year=2015;
-    private Pair<Country,Country> countryPair;
     Countries countries = new Countries();
-    private Country countryOne;
+    private Country country1, country2;
     TextView indicator1, indicator2, indicator3;
-    private Country countryTwo;
     private CheckBox checkBox;
     private TextView textView;
     public TextView nullValues;
@@ -63,11 +61,10 @@ public class MainActivity extends Activity {
             counter++;
         }
 
-        countryPair = new Pair<>(countryOne,countryTwo);
         countryName = countries.getCountries();
 
-        countryOne = countryName.get(181);
-        countryTwo = countryName.get(3);
+        country1 = countryName.get(181);
+        country2 = countryName.get(3);
 
         indicator1 = (TextView)findViewById(R.id.payTaxData);
         indicator2 = (TextView)findViewById(R.id.newBusinessData);
@@ -91,15 +88,12 @@ public class MainActivity extends Activity {
                 String yearS = (String) btn.getText();
                 if (yearS.equals("2014")) {
                     year = 2014;
-                    populateCharts();
-                    indicators =  new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
-                    indicators.setText();
+                    populateView(country1, country2);
                 }
                 else {
                     year = 2015;
-                    populateCharts();
-                    indicators =  new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
-                    indicators.setText();
+                    populateView(country1,country2);
+
                 }
             }
         };
@@ -117,14 +111,14 @@ public class MainActivity extends Activity {
 
 
         pieChart = (PieChart) findViewById(R.id.pieChart2);
-        populateCharts();
+        populateView(country1,country2);
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.getLegend().setEnabled(false);
 
     }
 
-    public void populateCharts() {
+    public void populateView(Country countryOne, Country countryTwo) {
 
         chartsView = new ChartsView(countryOne, countryTwo, year);
         chartsView.addData();
@@ -141,6 +135,9 @@ public class MainActivity extends Activity {
         registerBusiness.invalidate();
         chartsView.setBarCharts(timeToStartBusinessChart);
         chartsView.setBarCharts(registerBusiness);
+        indicators =  new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
+        indicators.setText();
+
 
     }
 }
