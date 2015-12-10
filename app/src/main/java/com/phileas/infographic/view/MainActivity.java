@@ -2,6 +2,8 @@ package com.phileas.infographic.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.github.mikephil.charting.charts.PieChart;
@@ -22,9 +25,11 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
+import com.phileas.infographic.controller.Animation;
 import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.PieChartData;
 import com.phileas.infographic.controller.ReadAllAssets;
+import com.phileas.infographic.controller.TextBoxController;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 import java.util.ArrayList;
@@ -41,10 +46,13 @@ public class MainActivity extends Activity  {
     private CountryAdapter countryAdapter;
     private Button btn2015;
     private Button btn2014;
+    ImageView imageview;
     private int year=2014;
+    Country countryOne, countryTwo;
     private PieChartData pieChartData;
+    TextView indicator1, indicator2, indicator3, indicator4, indicator5;
     private TextView nullValues;
-
+    TextBoxController indicators;
     Countries countries = new Countries();
     private float [] yData={5,10};
     private String [] xData = new String[2];
@@ -64,49 +72,33 @@ public class MainActivity extends Activity  {
                  *                  Once you have made the UIMainController of course.
                  */
 
-                Country  countryOne;
-                Country countryTwo;
-                TextView indicator1 = (TextView)findViewById(R.id.indicator1);
-                TextView indicator2 = (TextView)findViewById(R.id.indicator2);
-                TextView indicator3 = (TextView)findViewById(R.id.indicator3);
-                TextView indicator4 = (TextView)findViewById(R.id.indicator4);
-                TextView indicator5 = (TextView)findViewById(R.id.indicator5);
-                TextView indicator6 = (TextView)findViewById(R.id.indicator6);
+                imageview = (ImageView) findViewById(R.id.easeAnimation);
+                Animation anim = new Animation(imageview);
+                anim.runAnimationEase();
+
+                indicator1 = (TextView)findViewById(R.id.indicator1);
+                indicator2 = (TextView)findViewById(R.id.indicator2);
+                indicator3 = (TextView)findViewById(R.id.indicator3);
+                indicator4 = (TextView)findViewById(R.id.indicator4);
+                indicator5 = (TextView)findViewById(R.id.indicator5);
 
                 countryName = countries.getCountries();
 
 
-                Country  countryOne = countryName.get(15);
-                Country countryTwo = countryName.get(30);
+                countryOne = countryName.get(3);
+                countryTwo = countryName.get(4);
 
                 xData[0] = countryOne.getName();
                 xData[1] = countryTwo.getName();
 
+                ArrayList<TextView> i = new ArrayList<>();
+                i.add(indicator1);i.add(indicator2);i.add(indicator3);i.add(indicator4);i.add(indicator5);
+
                 countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
 
-                yData =  pieChartData.setData();
 
-
-//                Before button click set text to..
-//                indicator1.setText("Choose a date");
-//                indicator2.setText("Choose a date");
-//                indicator3.setText("Choose a date");
-//                indicator4.setText("Choose a date");
-//                indicator5.setText("Choose a date");
-//                indicator6.setText("Choose a date");
-
-
-                String ind1 = "IC.BUS.NREG"; String ind2 = "IC.REG.DURS";
-                String ind3 = "IC.REG.PROC"; String ind4 = "IC.TAX.DURS";
-                String ind5 = "IC.TAX.TOTL.CP.ZS"; String ind6 = "IC.BUS.EASE.XQ";
-
-
-                indicator1.setText(countryOne.getName() + " " +countryOne.getIndicator(2015, ind1) + ", " + countryTwo.getName() + " " + countryTwo.getIndicator(2015, ind1));
-                indicator2.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind2) + " days, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind2)+ " days.");
-                indicator3.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind3) + ", "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind3));
-                indicator4.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind4) + " hours, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind4)+" hours.");
-                indicator5.setText(countryOne.getName() + " "+countryOne.getIndicator(2015, ind5) + "%, "+countryTwo.getName() +" "+countryTwo.getIndicator(2015, ind5)+"%.");
-                indicator6.setText(countryOne.getName() + " " + countryOne.getIndicator(2015, ind6) + ", " + countryTwo.getName() + " " + countryTwo.getIndicator(2015, ind6));
+                indicators =  new TextBoxController(i, countryOne, countryTwo, year);
+                indicators.setText();
 
 
 
@@ -122,7 +114,7 @@ public class MainActivity extends Activity  {
                 nullValues= (TextView) findViewById(R.id.nullValueTv);
                 nullValues.setVisibility(View.INVISIBLE);
 
-                PieChartData pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
+                pieChartData = new PieChartData(countryOne,countryTwo,year,"NE.EXP.GNFS.ZS");
                 yData =  pieChartData.setData();
 
                 editText.addTextChangedListener(new TextWatcher() {
