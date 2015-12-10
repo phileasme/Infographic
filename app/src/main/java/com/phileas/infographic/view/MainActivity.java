@@ -1,43 +1,30 @@
 package com.phileas.infographic.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.phileas.infographic.R;
 import com.phileas.infographic.controller.CountryAdapter;
-import com.phileas.infographic.controller.PieChartData;
 import com.phileas.infographic.controller.ReadAllAssets;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class MainActivity extends Activity {
-    private HorizontalBarChart horizontalBarChart;
+
+    private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
     private PieChart pieChart;
     private ListView listView;
     private ArrayList<Country> countryName;
@@ -54,7 +41,7 @@ public class MainActivity extends Activity {
     private CheckBox checkBox;
     private TextView textView;
     public TextView nullValues;
-    private PieChartView pieChartView;
+    private ChartsView chartsView;
     private PieDataSet pieDataSet;
 
     @Override
@@ -77,10 +64,8 @@ public class MainActivity extends Activity {
         countryPair = new Pair<>(countryOne,countryTwo);
         countryName = countries.getCountries();
 
-        countryOne = countryName.get(4);
+        countryOne = countryName.get(15);
         countryTwo = countryName.get(3);
-
-
 
         countryAdapter = new CountryAdapter(this, android.R.layout.simple_list_item_1, countryName);
 
@@ -94,23 +79,13 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Button btn = (Button) findViewById(v.getId());
                 String yearS = (String) btn.getText();
-                Log.i("The year is ", yearS);
                 if (yearS.equals("2014")) {
                     year = 2014;
-                    pieChartView = new PieChartView(countryOne, countryTwo, year);
-                    pieChartView.addData();
-                    pieChartView.checkNull(pieChart, nullValues);
-                    pieChart.setData(pieChartView.addData());
-                    pieChart.invalidate();
+                    populateCharts();
                 }
                 else {
                     year = 2015;
-                    pieChartView = new PieChartView(countryOne, countryTwo, year);
-                    pieChartView.addData();
-                    pieChartView.checkNull(pieChart, nullValues);
-                    pieChart.setData(pieChartView.addData());
-                    pieChart.invalidate();
-
+                    populateCharts();
                 }
             }
         };
@@ -128,21 +103,56 @@ public class MainActivity extends Activity {
 
 
         pieChart = (PieChart) findViewById(R.id.pieChart2);
-        pieChartView = new PieChartView(countryOne,countryTwo, year);
-        pieChartView.addData();
-        pieChartView.checkNull(pieChart, nullValues);
-        pieChart.setData(pieChartView.addData());
-        pieChart.invalidate();
+        populateCharts();
         pieChart.setUsePercentValues(true);
-        pieChart.setDescription("Exports of goods and services (% of GDP)");
-        pieChartView.pieChartLegend(pieChart);
-
-
-        horizontalBarChart = (HorizontalBarChart) findViewById(R.id.barChart);
+        pieChart.setDescription("Total tax rate (% of commercial profits)");
+        chartsView.pieChartLegend(pieChart);
 
 
 
     }
+
+    public void populateCharts() {
+
+        chartsView = new ChartsView(countryOne, countryTwo, year);
+        chartsView.addData();
+        chartsView.checkNull(pieChart, nullValues);
+        pieChart.setData(chartsView.addData());
+        pieChart.invalidate();
+        timeToStartBusinessChart = (HorizontalBarChart) findViewById(R.id.timeToStartBusinessChart);
+        registerBusiness = (HorizontalBarChart) findViewById(R.id.registerBusinessChart);
+        chartsView.dataBarChart("IC.REG.DURS");
+        chartsView.dataBarChart("IC.REG.PROC");
+        registerBusiness.setData(chartsView.dataBarChart("IC.REG.PROC"));
+        timeToStartBusinessChart.setData(chartsView.dataBarChart("IC.REG.DURS"));
+        timeToStartBusinessChart.invalidate();
+        registerBusiness.invalidate();
+        setBarCharts(timeToStartBusinessChart);
+        setBarCharts(registerBusiness);
+
+    }
+
+
+    public void setBarCharts(HorizontalBarChart horizontalBarChart){
+
+        horizontalBarChart.setDescription("");
+
+        XAxis barChartXAxis = horizontalBarChart.getXAxis();
+        barChartXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChartXAxis.setDrawAxisLine(true);
+        barChartXAxis.setDrawGridLines(true);
+        barChartXAxis.setGridLineWidth(0.3f);
+
+        horizontalBarChart.getAxisRight().setEnabled(false);
+        horizontalBarChart.getAxisLeft().setEnabled(false);
+
+        horizontalBarChart.setDrawGridBackground(false);
+
+        horizontalBarChart.getLegend().setEnabled(false);
+    }
+
+
+
 
 
 }

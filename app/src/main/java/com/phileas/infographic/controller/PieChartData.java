@@ -88,11 +88,11 @@ public class PieChartData {
     public String getCountryThatIsNull(){
         if(values[0]==0){
             countryNullName=country1.getName();
-            countryNotNull=country2.getName() + " has " + values[1] + " exports of goods and services (% of GDP).";
+            countryNotNull=country2.getName() + " has " + values[1] + " total tax rate (% of commercial profits)";
         }
         else{
             countryNullName=country2.getName();
-            countryNotNull=country1.getName()+ " has " + values[0] + " exports of goods and services (% of GDP).";;
+            countryNotNull=country1.getName()+ " has " + values[0] + " total tax rate (% of commercial profits)";;
         }
         return countryNullName + ". " + countryNotNull;
     }

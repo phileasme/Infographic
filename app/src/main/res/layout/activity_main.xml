@@ -70,12 +70,20 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_toEndOf="@+id/linearLayout"/>
 
     <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/barChart"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
+        android:id="@+id/timeToStartBusinessChart"
+        android:layout_width="300sp"
+        android:layout_height="100sp"
         android:padding = "50dp"
         android:layout_above="@+id/button2015"
-        android:layout_alignStart="@+id/button2015" />
+        android:layout_alignStart="@+id/pieChart2" />
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/registerBusinessChart"
+        android:layout_width="300sp"
+        android:layout_height="100sp"
+        android:padding = "50dp"
+        android:layout_below="@+id/timeToStartBusinessChart"
+         />
 
     <TextView
         android:layout_width="200dp"
