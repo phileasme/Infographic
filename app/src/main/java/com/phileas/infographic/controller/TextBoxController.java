@@ -80,115 +80,15 @@ public class TextBoxController {
         country2TaxData = any1.getIndicator(year, indicatorTimePayTax);
 
 
-       // checkData();
+
     }
 
-//    public void checkData() {
-//
-//        changeToDouble();
-//
-//        if (data1double == 0.0) {
-//            country1BusinessData = "No data available";
+//    public String checkNullData(String valueIndicator){
+//        if(valueIndicator.equals("null")){
 //        }
-//        if (data2double == 0.0) {
-//            country1EaseData = "No data available";
-//        }
-//        if (data3double == 0.0) {
-//            country1TaxData = "No data available";
-//        }
-//        if (data4double == 0.0) {
-//            country2BusinessData = "No data available";
-//        }
-//        if (data5double == 0.0) {
-//            country2EaseData = "No data available";
-//        }
-//        if (data6double == 0.0) {
-//            country2TaxData = "No data available";
-//        }
-//        if (data7double == 0.0) {
-//            data7 = "No data available";
-//        }
-//        if (data8double == 0.0) {
-//            data8 = "No data available";
-//        }
-//        if (data9double == 0.0) {
-//            data9 = "No data available";
-//        }
-//        if (data10double == 0.0) {
-//            data10 = "No data available";
-//        }
-//
 //
 //    }
-//
-//    public void changeToDouble() {
-//        try {
-//        data1double = Double.parseDouble(country1BusinessData);
-//        data2double = Double.parseDouble(country1EaseData);
-//        data3double = Double.parseDouble(country1TaxData);
-//        data4double = Double.parseDouble(country2BusinessData);
-//        data5double = Double.parseDouble(country2EaseData);
-//        data6double = Double.parseDouble(country2TaxData);
-//        data7double = Double.parseDouble(data7);
-//        data8double = Double.parseDouble(data8);
-//        data9double = Double.parseDouble(data9);
-//        data10double = Double.parseDouble(data10);
-//
-//
-//            if (country1BusinessData.equals("null")) {
-//                data1double = 0.0;
-//            } else {
-//                data1double = data1double - data1double % 0.01;
-//            }
-//            if (country1EaseData.equals("null")) {
-//                data2double = 0.0;
-//            } else {
-//                data2double = data2double - data2double % 0.01;
-//            }
-//            if (country1TaxData.equals("null")) {
-//                data3double = 0.0;
-//            } else {
-//                data3double = data3double - data3double % 0.01;
-//            }
-//            if (country2BusinessData.equals("null")) {
-//                data4double = 0.0;
-//            } else {
-//                data4double = data4double - data4double % 0.01;
-//            }
-//            if (country2EaseData.equals("null")) {
-//                data5double = 0.0;
-//            } else {
-//                data5double = data5double - data5double % 0.01;
-//            }
-//            if (country2TaxData.equals("null")) {
-//                data6double = 0.0;
-//            } else {
-//                data6double = data6double - data6double % 0.01;
-//            }
-//            if (data7.equals("null")) {
-//                data7double = 0.0;
-//            } else {
-//                data7double = data7double - data7double % 0.01;
-//            }
-//            if (data8.equals("null")) {
-//                data8double = 0.0;
-//            } else {
-//                data7double = data7double - data7double % 0.01;
-//            }
-//            if (data9.equals("null")) {
-//                data9double = 0.0;
-//            } else {
-//                data9double = data9double - data9double % 0.01;
-//            }
-//            if (data10.equals("null")) {
-//                data10double = 0.0;
-//            } else {
-//                data10double = data10double - data10double % 0.01;
-//            }
-//        } catch (NullPointerException e) {
-//            Log.i("Exception " + e.getMessage(), e + "");
-//        }
 
-   // }
+
 }
 

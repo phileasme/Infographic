@@ -1,17 +1,8 @@
 package com.phileas.infographic.controller;
-
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 import com.phileas.infographic.view.MainActivity;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by elizabetamukanova on 07/12/2015.
@@ -28,21 +19,18 @@ public class PieChartData {
 
     Country country1;
     Country country2;
-    Countries countries;
-    String indicator;
+    String indicator ="IC.TAX.TOTL.CP.ZS";
+
     int year;
     float[] values = new float[2];
-    MainActivity mainActivity = new MainActivity();
-    private Context context = mainActivity.getBaseContext();
 
-
-    public PieChartData(Country country1, Country country2, int year, String indicator) {
+    public PieChartData(Country country1, Country country2, int year) {
 
         this.country1 = country1;
         this.country2 = country2;
-        this.indicator = indicator;
         this.year = year;
     }
+
 
 
     public float[] setData() throws NumberFormatException, NullPointerException {
@@ -100,13 +88,12 @@ public class PieChartData {
     public String getCountryThatIsNull(){
         if(values[0]==0){
             countryNullName=country1.getName();
-            countryNotNull=country2.getName() + " has " + values[1] + " exports of goods and services (% of GDP).";
+            countryNotNull=country2.getName() + " has " + values[1] + " total tax rate (% of commercial profits)";
         }
         else{
             countryNullName=country2.getName();
-            countryNotNull=country1.getName()+ " has " + values[0] + " exports of goods and services (% of GDP).";;
+            countryNotNull=country1.getName()+ " has " + values[0] + " total tax rate (% of commercial profits)";;
         }
         return countryNullName + ". " + countryNotNull;
     }
-
 }
