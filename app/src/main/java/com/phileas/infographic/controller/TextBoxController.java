@@ -59,7 +59,7 @@ public class TextBoxController {
         //setting tax data
         indicator1.setText(nameOfCountry + " takes " + data1 + " hours and " + nameOfCountry2 + " takes " + data4 + " hours.");
         //setting ease of business data
-        indicator3.setText(nameOfCountry + " was ranked " + data2 + " and " + nameOfCountry2 + " was ranked " + data5 + ". (1=most business-friendly regulations\n)");
+        indicator3.setText(nameOfCountry + " was ranked " + data2 + " and " + nameOfCountry2 + " was ranked " + data5 + ". (1=most business-friendly regulations)");
         //setting new business data
         indicator2.setText(nameOfCountry + " has " + data3 + " businesses and " + nameOfCountry2 + " has " + data6 + ".");
 
