@@ -25,6 +25,7 @@ public class Country {
      */
     public Country(String name){
         this.name = name;
+        this.checked=false;
         indicators = new HashMap<>();
     }
 
@@ -78,13 +79,7 @@ public class Country {
      * Retrieve the name of the country
      * @return
      */
-    public String getName(){
-        return name;
-    }
-
-    public void setSelected(boolean checked){this.checked=checked;}
-
-    public boolean isSelected(){return checked;}
+    public String getName(){return name;}
 
 
 
