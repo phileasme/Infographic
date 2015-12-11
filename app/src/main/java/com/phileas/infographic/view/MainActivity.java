@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
     TextBoxController indicators;
     private ReadAllAssets retrieveAllLocalCountriesInfo;
     private Country countryA,countryB,previousCountryA,previousCountryB;
-    private int year=2015;
+    private int year=2014;
     private Countries countries = new Countries();
     TextView indicator1, indicator2, indicator3, exportIndicatorCountryOne, exportIndicatorCountryTwo ;
     public TextView nullValues;
@@ -80,20 +80,20 @@ public class MainActivity extends Activity {
                 String item = ((TextView) view).getText().toString();
                 if (count == 0) {
                     countryA = getCountryByName(countriesArrayName.get(position));
-                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
                     count++;
                 } else if (count == 1 && (countryA == null || countryB == null)) {
                     if (countryA == null) {
                         if(!countryB.equals(getCountryByName(countriesArrayName.get(position)))) {
                             countryA = getCountryByName(countriesArrayName.get(position));
-                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
                             count++;
                             populateView(countryA, countryB);
                         }
                     } else if (countryB == null) {
                         if (!countryA.equals(getCountryByName(countriesArrayName.get(position)))) {
                             countryB = getCountryByName(countriesArrayName.get(position));
-                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
                             count++;
                             populateView(countryA, countryB);
                         }
@@ -153,16 +153,14 @@ public class MainActivity extends Activity {
                 Button btn = (Button) findViewById(v.getId());
                 String yearS = (String) btn.getText();
                 //Safe guard.
-                if((countryA != null && countryB != null)){
                     if (yearS.equals("2014")) {
                         year = 2014;
-
-                        populateView(countryA, countryB);
                     } else {
                         year = 2015;
-                        populateView(countryA, countryB);
-
                     }
+                Toast.makeText(getBaseContext(),""+year, Toast.LENGTH_SHORT).show();
+                if((countryA != null && countryB != null)){
+                    populateView(countryA, countryB);
                 }else{
                     Toast.makeText(getBaseContext(),"Please select two countries.", Toast.LENGTH_LONG).show();
                 }
