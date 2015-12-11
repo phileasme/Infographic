@@ -98,16 +98,20 @@ public class MainActivity extends Activity {
                             populateView(countryA, countryB);
                         }
                     }
-                } else if (count >= 2 && (countriesArrayName.get(position).equals(countryA.getName()) ||
-                        countriesArrayName.get(position).equals(countryB.getName()))) {
-                    if (countriesArrayName.get(position).equals(countryA.getName())) {
-                        previousCountryA = countryA;
-                         countryA = null;
-                    } else {
-                        previousCountryB = countryB;
-                        countryB = null;
+                } else if (count >= 2 ) {
+                    if (countriesArrayName.get(position).equals(countryA.getName()) ||
+                            countriesArrayName.get(position).equals(countryB.getName())) {
+                        if (countriesArrayName.get(position).equals(countryA.getName())) {
+                            previousCountryA = countryA;
+                            countryA = null;
+                        } else {
+                            previousCountryB = countryB;
+                            countryB = null;
+                        }
+                        count--;
+                    }else{
+                        Toast.makeText(getBaseContext(), "Please press the reset button.", Toast.LENGTH_LONG).show();
                     }
-                    count--;
                 }
 
 
@@ -149,20 +153,18 @@ public class MainActivity extends Activity {
                 Button btn = (Button) findViewById(v.getId());
                 String yearS = (String) btn.getText();
                 //Safe guard.
-                if(countryA == null){
-                    countryA = previousCountryA;
-                }else if(countryB == null){
-                    countryB = previousCountryB;
-                }
-                if (yearS.equals("2014")) {
-                    year = 2014;
+                if((countryA != null && countryB != null)){
+                    if (yearS.equals("2014")) {
+                        year = 2014;
 
-                    populateView(countryA, countryB);
-                }
-                else {
-                    year = 2015;
-                    populateView(countryA,countryB);
+                        populateView(countryA, countryB);
+                    } else {
+                        year = 2015;
+                        populateView(countryA, countryB);
 
+                    }
+                }else{
+                    Toast.makeText(getBaseContext(),"Please select two countries.", Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -182,7 +184,6 @@ public class MainActivity extends Activity {
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.getLegend().setEnabled(false);
-        Log.i("Message", "aocija");
 
     }
 
