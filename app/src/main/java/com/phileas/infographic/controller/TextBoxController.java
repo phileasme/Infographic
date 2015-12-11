@@ -70,26 +70,41 @@ public class TextBoxController {
     }
 
     public void createText(Country any, Country any1) {
+
         //getting tax data for country1
-        country1BusinessData = any.getIndicator(year, indicatorNewBusinessReg);
+        String c1bds = any.getIndicator(year, indicatorNewBusinessReg);
+        country1BusinessData = roundUpString(c1bds);
+
         //getting ease of business data for country 1
-        country1EaseData = any.getIndicator(year, indicatorEaseOfBusiness);
+        String c1ead =any.getIndicator(year, indicatorEaseOfBusiness);
+        country1EaseData = roundUpString(c1ead);
+
         //getting new business data for country1
-        country1TaxData = any.getIndicator(year, indicatorTimePayTax);
+        String c1td = any.getIndicator(year, indicatorTimePayTax);
+        country1TaxData = roundUpString(c1td);
+
         //getting exports of goods data for country2
-        country1ExportData = any.getIndicator(year, indicatorExports);
+        String c1exd = any.getIndicator(year, indicatorExports);
+        country1ExportData = roundUpString(c1exd);
 
 
 
 
         //getting tax data for country2
-        country2BusinessData = any1.getIndicator(year, indicatorNewBusinessReg);
+        String c2bds= any1.getIndicator(year, indicatorNewBusinessReg);
+        country2BusinessData = roundUpString(c2bds);
+
         //getting ease of business data for country 2
-        country2EaseData = any1.getIndicator(year, indicatorEaseOfBusiness);
+        String c2ead= any1.getIndicator(year, indicatorEaseOfBusiness);
+        country2EaseData = roundUpString(c2ead);
+
         //getting new business registered for country2
-        country2TaxData = any1.getIndicator(year, indicatorTimePayTax);
+        String c2td= any1.getIndicator(year, indicatorTimePayTax);
+        country2TaxData = roundUpString(c2td);
+
         //getting exports of goods data for country2
-        country2ExportData = any1.getIndicator(year, indicatorExports);
+        String c2exd= any1.getIndicator(year, indicatorExports);
+        country2ExportData = roundUpString(c2exd);
 
 
 
@@ -154,6 +169,13 @@ public class TextBoxController {
 
     }
 
-
+    public String roundUpString(String c){
+        if(c.indexOf('.') != -1){
+            if(c.substring(c.indexOf('.'),c.length()-1).length()> 2){
+                return c.substring(0,c.indexOf('.')+3);
+            }
+        }
+        return  c;
+    }
 
 }
