@@ -72,7 +72,7 @@ public class ChartsView extends MainActivity{
 
         pieData = new PieData(xVals, pieDataSet);
         pieData.setValueFormatter(new PercentFormatter());
-        pieData.setValueTextSize(10f);
+        pieData.setValueTextSize(12f);
         pieData.setValueTextColor(Color.BLACK);
 
         pieDataSet.setColors(this.setColors());
@@ -137,7 +137,7 @@ public class ChartsView extends MainActivity{
         dataSets.add(yValueBarDataSet);
 
         BarData barData = new BarData(xAxis, dataSets);
-        barData.setValueTextSize(10f);
+        barData.setValueTextSize(12f);
         yValueBarDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
 
         return barData;
