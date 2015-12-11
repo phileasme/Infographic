@@ -23,6 +23,9 @@ import com.phileas.infographic.model.Country;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ *Activity that displays the entire App.
+ */
 public class MainActivity extends Activity {
 
     private ArrayList<Country> countriesArray;
