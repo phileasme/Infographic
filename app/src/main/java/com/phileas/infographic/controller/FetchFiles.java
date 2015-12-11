@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 /**
  * Class that fetchs the required files from from the BankData set
+ * @Author :Phileas Hocquard
  */
 public class FetchFiles {
     String file;
