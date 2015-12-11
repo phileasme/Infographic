@@ -21,16 +21,16 @@ public class TextBoxController {
 
     /**Constructor
      *
-     * @param textViewArrayList
-     * @param countrya
-     * @param countryb
+     * @param inds
+     * @param a
+     * @param b
      * @param year
      */
-    public TextBoxController(ArrayList<TextView> textViewArrayList, Country countrya, Country countryb, int year) {
-        one = countrya;
-        two = countryb;
+    public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
+        one = a;
+        two = b;
         this.year = year;
-        textviews = textViewArrayList;
+        textviews = inds;
     }
 
 
@@ -40,7 +40,7 @@ public class TextBoxController {
      */
     public void setText() {
 
-
+        getIndicatorName();
         //pay tax data
         textViewPayTax = textviews.get(0);
         //new business data
@@ -54,6 +54,9 @@ public class TextBoxController {
         nameOfCountry2 = two.getName();
 
         getData(one, two);
+
+
+
 
         //setting tax data
         checkNullDataTax();
@@ -82,7 +85,7 @@ public class TextBoxController {
 
     }
 
-    /**Method that gets data from the indicators and stores them in a String
+    /**Method that gets data from the specified Indicators and stores them in a String
      * @param countryOne
      * @param countryTwo
      */
@@ -127,9 +130,7 @@ public class TextBoxController {
 
     }
 
-    /** Method that checks whether the String value of the Business indicator is null and
-     * sets the text accordingly,
-     * displaying the appropriate message.
+    /** Method that checks wht
      *
      */
 
@@ -147,10 +148,6 @@ public class TextBoxController {
 
     }
 
-    /** Method that checks whether the String value of the prepare and paying taxes indicator is null
-     * and sets the text accordingly, displaying the appropriate message.
-     *
-     */
     public void checkNullDataTax(){
 
         if(country1TaxData.equals("null")&& country2TaxData.equals("null")){
@@ -166,10 +163,6 @@ public class TextBoxController {
 
     }
 
-    /**
-     * Method that checks whether the String value of the Ease of doing a business indicator is null
-     * and sets the text accordingly, displaying the appropriate message.
-     */
     public void checkNullDataEase(){
 
         if(country1EaseData.equals("null")&& country2EaseData.equals("null")){
@@ -185,10 +178,6 @@ public class TextBoxController {
 
     }
 
-    /**
-     * Method that checks whether the String value of the exporting of goods and services indicator is null and
-     * sets the text accordingly, displaying the appropriate message.
-     */
     public void checkNullDataExports(){
         if(country1ExportData.equals("null")){
             textViewExportsCountryOne.setText("Sorry no data is currently available for " + nameOfCountry);
@@ -204,7 +193,7 @@ public class TextBoxController {
 
     }
 
-    /**Method that rounds up the string and shortens its length to 2 characters after the decimal.
+    /**Method that rounds up the string and shortens its length to 3 characters after the decimal.
      * @param c
      * @return shortened version of the string.
      */
