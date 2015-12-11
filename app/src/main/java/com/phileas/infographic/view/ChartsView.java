@@ -1,5 +1,6 @@
 package com.phileas.infographic.view;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.phileas.infographic.model.Country;
 
 /**
  * Created by elizabetamukanova on 10/12/2015.
+ *
  */
 public class ChartsView extends MainActivity{
     PieDataSet pieDataSet;
@@ -40,6 +42,12 @@ public class ChartsView extends MainActivity{
     private String indicator;
 
 
+    /**
+     *  Constructor that initialise the countries and the year
+     * @param countryOne
+     * @param countryTwo
+     * @param year
+     */
     public ChartsView(Country countryOne, Country countryTwo, int year) {
         this.year = year;
         this.countryOne = countryOne;
@@ -47,7 +55,10 @@ public class ChartsView extends MainActivity{
     }
 
 
-    // add the data to the pie chart
+
+    /**Method that adds data to the pie chart
+     * @return the data for the pie chart
+     */
     public PieData addData() {
 
         pieChartData = new PieChartData(countryOne,countryTwo,year);
@@ -71,7 +82,7 @@ public class ChartsView extends MainActivity{
 
         pieData = new PieData(xVals, pieDataSet);
         pieData.setValueFormatter(new PercentFormatter());
-        pieData.setValueTextSize(10f);
+        pieData.setValueTextSize(12f);
         pieData.setValueTextColor(Color.BLACK);
 
         pieDataSet.setColors(this.setColors());
@@ -81,7 +92,11 @@ public class ChartsView extends MainActivity{
 
     }
 
-    //Checks if there are null values, replaces the pieChart with a textView if that is the case
+
+    /**Method that checks if there are null values and if thats the case, it replaces the pieChart with a textvie.
+     * @param pieChart
+     * @param nullValues
+     */
     public void checkNull(PieChart pieChart, TextView nullValues) {
         if (pieChartData.getNullValues()) {
             pieChart.setVisibility(View.INVISIBLE);
@@ -92,11 +107,17 @@ public class ChartsView extends MainActivity{
             pieChart.setVisibility(View.INVISIBLE);
             nullValues.setText("Unfortunately, there is no data for Total tax rate (% of commercial profits) for " + pieChartData.getCountryThatIsNull());
             nullValues.setVisibility(View.VISIBLE);
+        } else {
+            pieChart.setVisibility(View.VISIBLE);
+            nullValues.setVisibility(View.INVISIBLE);
         }
 
     }
 
-    //Populates the barChart
+    /**Method that populates the barChart
+     * @param indicator
+     * @return the data for the BarChart
+     */
     public BarData dataBarChart(String indicator){
 
         this.indicator=indicator;
@@ -111,29 +132,37 @@ public class ChartsView extends MainActivity{
 
         ArrayList<BarDataSet>  dataSets = new ArrayList<>();
 
-        if (countryOneValue.equals("null")){
+        if (countryOneValue.equals("null") && !countryTwoValue.equals("null")){
             countryOneValue="0";
 
-        } else if (countryTwoValue.equals("null")){
+        } else if (countryTwoValue.equals("null") && !countryOneValue.equals("null")){
             countryTwoValue="0";
         }
         else if(countryOneValue.equals("null") && countryTwoValue.equals("null")){
             countryOneValue="0";
             countryTwoValue="0";
         }
+        else{
+            countryOneValue = countryOne.getIndicator(year, indicator);
+            countryTwoValue= countryTwo.getIndicator(year, indicator);
+        }
+
         populateValueSet();
 
         BarDataSet yValueBarDataSet = new BarDataSet(valueSet,"");
         dataSets.add(yValueBarDataSet);
 
         BarData barData = new BarData(xAxis, dataSets);
-        barData.setValueTextSize(10f);
+        barData.setValueTextSize(12f);
         yValueBarDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
 
         return barData;
     }
 
-    //Method for adding colors to the charts
+
+    /** Method for adding colours to pie chart
+     * @return Arraylist of colours
+     */
     public ArrayList<Integer> setColors(){
         ArrayList<Integer> colors = new ArrayList<>();
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
@@ -145,12 +174,24 @@ public class ChartsView extends MainActivity{
         return colors;
     }
 
+    /**  Method that populates both of the bar charts with data
+     *
+     */
     public void populateValueSet(){
-        valueSet.add(new BarEntry(Float.parseFloat(countryOneValue), 0));
-        valueSet.add(new BarEntry(Float.parseFloat(countryTwoValue), 1));
+
+        float floatCountryOne = Float.parseFloat(countryOneValue);
+        float floatCountryTwo = Float.parseFloat(countryTwoValue);
+
+        BarEntry barEntryOne = new BarEntry(floatCountryOne,0);
+        BarEntry barEntryTwo = new BarEntry(floatCountryTwo,1);
+        valueSet.add(barEntryOne);
+        valueSet.add(barEntryTwo);
     }
 
 
+    /** Method that sets the design and the position of  both bar charts
+     * @param horizontalBarChart
+     */
     public void setBarCharts(HorizontalBarChart horizontalBarChart){
 
         horizontalBarChart.setDescription("");
@@ -165,7 +206,6 @@ public class ChartsView extends MainActivity{
         horizontalBarChart.getAxisLeft().setEnabled(false);
 
         horizontalBarChart.setDrawGridBackground(false);
-
         horizontalBarChart.getLegend().setEnabled(false);
     }
 
