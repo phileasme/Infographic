@@ -255,7 +255,8 @@
             android:textAlignment="center"
             android:typeface="serif"
             android:textStyle="normal"
-            android:textColor="#010101" />
+            android:textColor="#010101"
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="70dp"
@@ -289,7 +290,8 @@
             android:textAlignment="center"
             android:textColor="#010101"
             android:textStyle="normal"
-            android:typeface="serif" />
+            android:typeface="serif"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
@@ -330,11 +332,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#000000"
             android:text="Please select a year and two countries"
             android:id="@+id/newBusinessData"
             android:layout_below="@+id/titleBusiness"
-            android:layout_marginStart="29dp" />
+            android:layout_marginStart="29dp"
+            android:textColor="#010001" />
 
     </RelativeLayout>
 
