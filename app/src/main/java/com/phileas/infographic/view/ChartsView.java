@@ -1,5 +1,6 @@
 package com.phileas.infographic.view;
 import android.graphics.Color;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -105,7 +106,7 @@ public class ChartsView extends MainActivity{
 
         } else if (pieChartData.getNullValue()) {
             pieChart.setVisibility(View.INVISIBLE);
-            nullValues.setText("Unfortunately, there is no data for Total tax rate (% of commercial profits) for " + pieChartData.getCountryThatIsNull());
+            nullValues.setText(Html.fromHtml("<small> Unfortunately, there is no data for Total tax rate (% of commercial profits) for " + pieChartData.getCountryThatIsNull() + "</small>"));
             nullValues.setVisibility(View.VISIBLE);
         } else {
             pieChart.setVisibility(View.VISIBLE);
