@@ -25,6 +25,7 @@ import com.phileas.infographic.model.Country;
 
 /**
  * Created by elizabetamukanova on 10/12/2015.
+ *
  */
 public class ChartsView extends MainActivity{
     PieDataSet pieDataSet;
@@ -42,7 +43,7 @@ public class ChartsView extends MainActivity{
 
 
     /**
-     *
+     *  Constructor that initialise the countries and the year
      * @param countryOne
      * @param countryTwo
      * @param year
@@ -56,7 +57,6 @@ public class ChartsView extends MainActivity{
 
 
     /**Method that adds data to the pie chart
-     *
      * @return the data for the pie chart
      */
     public PieData addData() {
@@ -94,7 +94,6 @@ public class ChartsView extends MainActivity{
 
 
     /**Method that checks if there are null values and if thats the case, it replaces the pieChart with a textvie.
-     *
      * @param pieChart
      * @param nullValues
      */
@@ -108,18 +107,14 @@ public class ChartsView extends MainActivity{
             pieChart.setVisibility(View.INVISIBLE);
             nullValues.setText("Unfortunately, there is no data for Total tax rate (% of commercial profits) for " + pieChartData.getCountryThatIsNull());
             nullValues.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             pieChart.setVisibility(View.VISIBLE);
             nullValues.setVisibility(View.INVISIBLE);
         }
 
     }
 
-    //Populates the barChart
-
     /**Method that populates the barChart
-     *
      * @param indicator
      * @return the data for the BarChart
      */
@@ -165,8 +160,7 @@ public class ChartsView extends MainActivity{
     }
 
 
-    /** Method for adding colours to a chart
-     *
+    /** Method for adding colours to pie chart
      * @return Arraylist of colours
      */
     public ArrayList<Integer> setColors(){
@@ -183,7 +177,6 @@ public class ChartsView extends MainActivity{
     /**  Method that populates both of the bar charts with data
      *
      */
-
     public void populateValueSet(){
 
         float floatCountryOne = Float.parseFloat(countryOneValue);
@@ -197,7 +190,6 @@ public class ChartsView extends MainActivity{
 
 
     /** Method that sets the design and the position of  both bar charts
-     *
      * @param horizontalBarChart
      */
     public void setBarCharts(HorizontalBarChart horizontalBarChart){
@@ -214,7 +206,6 @@ public class ChartsView extends MainActivity{
         horizontalBarChart.getAxisLeft().setEnabled(false);
 
         horizontalBarChart.setDrawGridBackground(false);
-
         horizontalBarChart.getLegend().setEnabled(false);
     }
 

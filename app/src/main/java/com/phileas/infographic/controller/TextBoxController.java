@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Hannah on 08/12/2015.
+ * Create textviews and set the data for two countries with four indicators
+ * It checks if the countries have null values and display appropriate message
  */
 public class TextBoxController {
     Country one;
@@ -21,16 +23,16 @@ public class TextBoxController {
 
     /**Constructor
      *
-     * @param inds
-     * @param a
-     * @param b
+     * @param textViewArrayList
+     * @param countrya
+     * @param counryb
      * @param year
      */
-    public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
-        one = a;
-        two = b;
+    public TextBoxController(ArrayList<TextView> textViewArrayList, Country countrya, Country counryb, int year) {
+        one = countrya;
+        two = counryb;
         this.year = year;
-        textviews = inds;
+        textviews = textViewArrayList;
     }
 
 
@@ -85,7 +87,7 @@ public class TextBoxController {
 
     }
 
-    /**Method that gets data from the specified Indicators and stores them in a String
+    /**Method that gets data from indicators and stores them in a String
      * @param countryOne
      * @param countryTwo
      */
@@ -130,7 +132,8 @@ public class TextBoxController {
 
     }
 
-    /** Method that checks wht
+    /** Method that checks if the two countries have a null value for NEW BUSINESSES REGISTERED indicator.
+     * then it displays the texts in the texview accordingly.
      *
      */
 
@@ -148,6 +151,10 @@ public class TextBoxController {
 
     }
 
+    /** Method that checks if the two countries have a null value for TIME TO PREPARE AND PAY TAX indicator.
+     * then it displays the texts in the texview accordingly.
+     *
+     */
     public void checkNullDataTax(){
 
         if(country1TaxData.equals("null")&& country2TaxData.equals("null")){
@@ -163,6 +170,12 @@ public class TextBoxController {
 
     }
 
+    /** Method that checks if the two countries have a null value for EASE OF DOING BUSINESS indicator.
+     * then it displays the texts in the texview accordingly.
+     *
+     */
+
+
     public void checkNullDataEase(){
 
         if(country1EaseData.equals("null")&& country2EaseData.equals("null")){
@@ -177,6 +190,11 @@ public class TextBoxController {
         }
 
     }
+    /** Method that checks if the two countries have a null value for EXPORT OF GOODS AND SERVICE indicator.
+     * then it displays the texts in the texview accordingly.
+     *
+     */
+
 
     public void checkNullDataExports(){
         if(country1ExportData.equals("null")){

@@ -6,6 +6,8 @@ import com.phileas.infographic.view.MainActivity;
 
 /**
  * Created by elizabetamukanova on 07/12/2015.
+ * It sets the data for pie chart and bar charts
+ * It checks the null values for the two countries
  */
 public class PieChartData {
 
@@ -81,7 +83,6 @@ public class PieChartData {
     }
 
     /** Method that checks if all of the values in the float array are null
-     *
      * @return value, if all of the float values in the array are null
      */
     public boolean getNullValues() {
@@ -95,7 +96,6 @@ public class PieChartData {
     }
 
     /** Method that checks if either of the values in the float array are null
-     *
      * @return value, if one of the float values in the array is null or not null
      */
     public boolean getNullValue(){
@@ -107,7 +107,6 @@ public class PieChartData {
     }
 
     /**Method that displays a textview instead of the pie chart with a message when the country or countries have null data
-     *
      * @return countryNullName, name of the country that is null and countryNotNull, the name of country that is NOT null as string.
      */
     public String getCountryThatIsNull(){
