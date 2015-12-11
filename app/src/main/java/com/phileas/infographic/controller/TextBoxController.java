@@ -19,26 +19,24 @@ public class TextBoxController {
     String nameOfCountry, nameOfCountry2;
     String country1BusinessData, country1EaseData, country1TaxData, country2BusinessData, country2EaseData, country2TaxData, country1ExportData, country2ExportData;
 
-    /**Constructor
-     *
-     * @param textViewArrayList
-     * @param countrya
-     * @param countryb
-     * @param year
-     */
-    public TextBoxController(ArrayList<TextView> textViewArrayList, Country countrya, Country countryb, int year) {
-        one = countrya;
-        two = countryb;
+    public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
+        one = a;
+        two = b;
         this.year = year;
-        textviews = textViewArrayList;
+        textviews = inds;
     }
 
 
-
-    /**Method that defines each TextView from the array and sets the text in the TextViews
-     *
-     */
     public void setText() {
+
+        //new business registered
+        indicatorNewBusinessReg = "IC.BUS.NREG";
+        //ease of doing business
+        indicatorEaseOfBusiness = "IC.BUS.EASE.XQ";
+        //time to pay taxes
+        indicatorTimePayTax = "IC.TAX.DURS";
+        //exports of goods and services (% of GDP)
+        indicatorExports="NE.EXP.GNFS.ZS";
 
 
         //pay tax data
@@ -53,7 +51,10 @@ public class TextBoxController {
         nameOfCountry = one.getName();
         nameOfCountry2 = two.getName();
 
-        getData(one, two);
+        createText(one, two);
+
+
+
 
         //setting tax data
         checkNullDataTax();
@@ -67,71 +68,31 @@ public class TextBoxController {
 
     }
 
-    /**Method that stores the indicator name into a variable
-     *
-     */
-    public void getIndicatorName(){
-        //new business registered
-        indicatorNewBusinessReg = "IC.BUS.NREG";
-        //ease of doing business
-        indicatorEaseOfBusiness = "IC.BUS.EASE.XQ";
-        //time to pay taxes
-        indicatorTimePayTax = "IC.TAX.DURS";
-        //exports of goods and services (% of GDP)
-        indicatorExports="NE.EXP.GNFS.ZS";
-
-    }
-
-    /**Method that gets data from the indicators and stores them in a String
-     * @param countryOne
-     * @param countryTwo
-     */
-    public void getData(Country countryOne, Country countryTwo) {
-
+    public void createText(Country any, Country any1) {
         //getting tax data for country1
-        String c1bds = countryOne.getIndicator(year, indicatorNewBusinessReg);
-        country1BusinessData = roundUpString(c1bds);
-
+        country1BusinessData = any.getIndicator(year, indicatorNewBusinessReg);
         //getting ease of business data for country 1
-        String c1ead =countryOne.getIndicator(year, indicatorEaseOfBusiness);
-        country1EaseData = roundUpString(c1ead);
-
+        country1EaseData = any.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business data for country1
-        String c1td = countryOne.getIndicator(year, indicatorTimePayTax);
-        country1TaxData = roundUpString(c1td);
-
+        country1TaxData = any.getIndicator(year, indicatorTimePayTax);
         //getting exports of goods data for country2
-        String c1exd = countryOne.getIndicator(year, indicatorExports);
-        country1ExportData = roundUpString(c1exd);
+        country1ExportData = any.getIndicator(year, indicatorExports);
 
 
 
 
         //getting tax data for country2
-        String c2bds= countryTwo.getIndicator(year, indicatorNewBusinessReg);
-        country2BusinessData = roundUpString(c2bds);
-
+        country2BusinessData = any1.getIndicator(year, indicatorNewBusinessReg);
         //getting ease of business data for country 2
-        String c2ead= countryTwo.getIndicator(year, indicatorEaseOfBusiness);
-        country2EaseData = roundUpString(c2ead);
-
+        country2EaseData = any1.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business registered for country2
-        String c2td= countryTwo.getIndicator(year, indicatorTimePayTax);
-        country2TaxData = roundUpString(c2td);
-
+        country2TaxData = any1.getIndicator(year, indicatorTimePayTax);
         //getting exports of goods data for country2
-        String c2exd= countryTwo.getIndicator(year, indicatorExports);
-        country2ExportData = roundUpString(c2exd);
+        country2ExportData = any1.getIndicator(year, indicatorExports);
 
 
 
     }
-
-    /** Method that checks whether the String value of the Business indicator is null and
-     * sets the text accordingly,
-     * displaying the appropriate message.
-     *
-     */
 
     public void checkNullDataBusiness(){
         if(country1BusinessData.equals("null")&& country2BusinessData.equals("null")){
@@ -139,18 +100,14 @@ public class TextBoxController {
         }else if( country1BusinessData.equals("null") && country2BusinessData != null){
             textViewNewBusinessReg.setText(nameOfCountry + " has no data available, and " + nameOfCountry2 + " has " + country2BusinessData + " businesses registered.");
         }else if(country1BusinessData!=null && country2BusinessData.equals("null")){
-            textViewNewBusinessReg.setText(nameOfCountry + " has " +  country1BusinessData  + " businesses and " + nameOfCountry2 + " has no data available.");
+            textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " businesses and " + nameOfCountry2 + " has no data available.");
         }else  {
-            textViewNewBusinessReg.setText(nameOfCountry + " has "+ country1BusinessData  +" new businesses registered and " + nameOfCountry2 + " has " + country2BusinessData + ".");
+            textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " new businesses registered and " + nameOfCountry2 + " has " + country2BusinessData + ".");
 
         }
 
     }
 
-    /** Method that checks whether the String value of the prepare and paying taxes indicator is null
-     * and sets the text accordingly, displaying the appropriate message.
-     *
-     */
     public void checkNullDataTax(){
 
         if(country1TaxData.equals("null")&& country2TaxData.equals("null")){
@@ -166,10 +123,6 @@ public class TextBoxController {
 
     }
 
-    /**
-     * Method that checks whether the String value of the Ease of doing a business indicator is null
-     * and sets the text accordingly, displaying the appropriate message.
-     */
     public void checkNullDataEase(){
 
         if(country1EaseData.equals("null")&& country2EaseData.equals("null")){
@@ -185,10 +138,6 @@ public class TextBoxController {
 
     }
 
-    /**
-     * Method that checks whether the String value of the exporting of goods and services indicator is null and
-     * sets the text accordingly, displaying the appropriate message.
-     */
     public void checkNullDataExports(){
         if(country1ExportData.equals("null")){
             textViewExportsCountryOne.setText("Sorry no data is currently available for " + nameOfCountry);
@@ -204,17 +153,6 @@ public class TextBoxController {
 
     }
 
-    /**Method that rounds up the string and shortens its length to 2 characters after the decimal.
-     * @param c
-     * @return shortened version of the string.
-     */
-    public String roundUpString(String c){
-        if(c.indexOf('.') != -1){
-            if(c.substring(c.indexOf('.'),c.length()-1).length()> 2){
-                return c.substring(0,c.indexOf('.')+3);
-            }
-        }
-        return  c;
-    }
+
 
 }

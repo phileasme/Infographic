@@ -25,9 +25,13 @@ import java.util.Collections;
 
 public class MainActivity extends Activity {
 
+
     private ArrayList<Country> countriesArray;
     private ArrayList<String> countriesArrayName;
     private int count = 2;
+
+
+
     private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
     private PieChart pieChart;
     private ListView listView;
@@ -37,7 +41,7 @@ public class MainActivity extends Activity {
     TextBoxController indicators;
     private ReadAllAssets retrieveAllLocalCountriesInfo;
     private Country countryA,countryB,previousCountryA,previousCountryB;
-    private int year=2014;
+    private int year=2015;
     private Countries countries = new Countries();
     TextView indicator1, indicator2, indicator3, exportIndicatorCountryOne, exportIndicatorCountryTwo ;
     public TextView nullValues;
@@ -76,38 +80,34 @@ public class MainActivity extends Activity {
                 String item = ((TextView) view).getText().toString();
                 if (count == 0) {
                     countryA = getCountryByName(countriesArrayName.get(position));
-                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
                     count++;
                 } else if (count == 1 && (countryA == null || countryB == null)) {
                     if (countryA == null) {
                         if(!countryB.equals(getCountryByName(countriesArrayName.get(position)))) {
                             countryA = getCountryByName(countriesArrayName.get(position));
-                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
                             count++;
                             populateView(countryA, countryB);
                         }
                     } else if (countryB == null) {
                         if (!countryA.equals(getCountryByName(countriesArrayName.get(position)))) {
                             countryB = getCountryByName(countriesArrayName.get(position));
-                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
                             count++;
                             populateView(countryA, countryB);
                         }
                     }
-                } else if (count >= 2 ) {
-                    if (countriesArrayName.get(position).equals(countryA.getName()) ||
-                            countriesArrayName.get(position).equals(countryB.getName())) {
-                        if (countriesArrayName.get(position).equals(countryA.getName())) {
-                            previousCountryA = countryA;
-                            countryA = null;
-                        } else {
-                            previousCountryB = countryB;
-                            countryB = null;
-                        }
-                        count--;
-                    }else{
-                        Toast.makeText(getBaseContext(), "Please press the reset button.", Toast.LENGTH_LONG).show();
+                } else if (count >= 2 && (countriesArrayName.get(position).equals(countryA.getName()) ||
+                        countriesArrayName.get(position).equals(countryB.getName()))) {
+                    if (countriesArrayName.get(position).equals(countryA.getName())) {
+                        previousCountryA = countryA;
+                         countryA = null;
+                    } else {
+                        previousCountryB = countryB;
+                        countryB = null;
                     }
+                    count--;
                 }
 
 
@@ -149,16 +149,20 @@ public class MainActivity extends Activity {
                 Button btn = (Button) findViewById(v.getId());
                 String yearS = (String) btn.getText();
                 //Safe guard.
-                    if (yearS.equals("2014")) {
-                        year = 2014;
-                    } else {
-                        year = 2015;
-                    }
-                Toast.makeText(getBaseContext(),""+year, Toast.LENGTH_SHORT).show();
-                if((countryA != null && countryB != null)){
+                if(countryA == null){
+                    countryA = previousCountryA;
+                }else if(countryB == null){
+                    countryB = previousCountryB;
+                }
+                if (yearS.equals("2014")) {
+                    year = 2014;
+
                     populateView(countryA, countryB);
-                }else{
-                    Toast.makeText(getBaseContext(),"Please select two countries.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    year = 2015;
+                    populateView(countryA,countryB);
+
                 }
             }
         };
@@ -178,14 +182,9 @@ public class MainActivity extends Activity {
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.getLegend().setEnabled(false);
+        Log.i("Message", "aocija");
 
     }
-
-    /** Method that finds the country assosciated with the country name
-     *
-     * @param countryName
-     * @return the country assosciated with the specified name
-     */
 
     private Country getCountryByName(String countryName){
             for(Country cx : countriesArray){
@@ -193,13 +192,6 @@ public class MainActivity extends Activity {
             }
         return null;
     }
-
-
-    /** Method that populates the pie chart and bar charts with the right indicators and countries
-     *
-     * @param countryOne
-     * @param countryTwo
-     */
 
     public void populateView(Country countryOne, Country countryTwo) {
 
