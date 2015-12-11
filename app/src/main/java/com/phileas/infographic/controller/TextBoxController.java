@@ -13,11 +13,11 @@ public class TextBoxController {
     Country one;
     Country two;
     int year;
-    TextView textViewPayTax, textViewNewBusinessReg, textViewEaseOfBusiness, indicator4, indicator5;
-    String indicatorNewBusinessReg, indicatorEaseOfBusiness, indicatorTimePayTax, ind4, ind5;
+    TextView textViewPayTax, textViewNewBusinessReg, textViewEaseOfBusiness, textViewExportsCountryOne, textViewExportsCountryTwo, indicator5;
+    String indicatorNewBusinessReg, indicatorEaseOfBusiness, indicatorTimePayTax, indicatorExports, ind4, ind5;
     ArrayList<TextView> textviews;
     String nameOfCountry, nameOfCountry2;
-    String country1BusinessData, country1EaseData, country1TaxData, country2BusinessData, country2EaseData, country2TaxData;
+    String country1BusinessData, country1EaseData, country1TaxData, country2BusinessData, country2EaseData, country2TaxData, country1ExportData, country2ExportData;
     Double data1double, data2double, data3double, data4double, data5double, data6double, data7double, data8double, data9double, data10double;
 
     public TextBoxController(ArrayList<TextView> inds, Country a, Country b, int year) {
@@ -36,6 +36,8 @@ public class TextBoxController {
         indicatorEaseOfBusiness = "IC.BUS.EASE.XQ";
         //time to pay taxes
         indicatorTimePayTax = "IC.TAX.DURS";
+        //exports of goods and services (% of GDP)
+        indicatorExports="NE.EXP.GNFS.ZS";
 
         //pay tax data
         textViewPayTax = textviews.get(0);
@@ -43,6 +45,9 @@ public class TextBoxController {
         textViewNewBusinessReg = textviews.get(1);
         //ease of business data
         textViewEaseOfBusiness = textviews.get(2);
+        //exports text views
+        textViewExportsCountryOne = textviews.get(3);
+        textViewExportsCountryTwo = textviews.get(4);
 
         nameOfCountry = one.getName();
         nameOfCountry2 = two.getName();
@@ -56,6 +61,9 @@ public class TextBoxController {
         textViewEaseOfBusiness.setText(nameOfCountry + " was ranked " + country1EaseData + " and " + nameOfCountry2 + " was ranked " + country2EaseData + ". (1=most business-friendly regulations)");
         //setting new business data
         textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " businesses and " + nameOfCountry2 + " has " + country2BusinessData + ".");
+        //setting exports data
+        textViewExportsCountryOne.setText(country1ExportData + " %" + "\n " + nameOfCountry);
+        textViewExportsCountryTwo.setText(country2ExportData + " %" + "\n " + nameOfCountry2);
 
 
 
@@ -68,7 +76,8 @@ public class TextBoxController {
         country1EaseData = any.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business data for country1
         country1TaxData = any.getIndicator(year, indicatorTimePayTax);
-
+        //getting exports data for country1
+        country1ExportData = any.getIndicator(year, indicatorExports);
 
 
 
@@ -78,7 +87,8 @@ public class TextBoxController {
         country2EaseData = any1.getIndicator(year, indicatorEaseOfBusiness);
         //getting new business registered for country2
         country2TaxData = any1.getIndicator(year, indicatorTimePayTax);
-
+        //getting exports data for country2
+        country2ExportData = any1.getIndicator(year, indicatorExports);
 
 
     }
