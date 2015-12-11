@@ -3,57 +3,60 @@ package com.phileas.infographic.view;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Html;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.phileas.infographic.R;
-import com.phileas.infographic.controller.CountryAdapter;
 import com.phileas.infographic.controller.ReadAllAssets;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.phileas.infographic.controller.TextBoxController;
 import com.phileas.infographic.model.Countries;
 import com.phileas.infographic.model.Country;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Stack;
 
 public class MainActivity extends Activity {
 
-    private ListView listView;
+
     private ArrayList<Country> countriesArray;
-    Countries countries = new Countries();
-    private Country countryA;
-    private Country countryB;
-    private  ReadAllAssets retrieveAllLocalCountriesInfo;
     private ArrayList<String> countriesArrayName;
     private int count = 0;
+
+    private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
+    private PieChart pieChart;
+    private ListView listView;
+    private ArrayList<Country> countryName;
+    private Button btn2015;
+    private Button btn2014;
+    TextBoxController indicators;
+    private ReadAllAssets retrieveAllLocalCountriesInfo;
+    private Country countryA,countryB;
+    private int year=2015;
+    private Countries countries = new Countries();
+    TextView indicator1, indicator2, indicator3;
+    public TextView nullValues;
+    private ChartsView chartsView;
+    ArrayList<TextView> collectionOfTextviews;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //Returns a defined Countries class filled with indicator information
         retrieveAllLocalCountriesInfo = new ReadAllAssets();
+
+        ReadAllAssets retrieveAllLocalCountriesInfo = new ReadAllAssets();
+
         countries = retrieveAllLocalCountriesInfo.ReadAllAssetFiles("", this.getBaseContext());
-        /**
-         *
-         * Pass this to the main UI controller "countries.getCountries()" and that will give you a collection of countries.
-         * Like this : UIMainController uiMainController = new UIMainController(countries.getCountries());
-         * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-         *                  Once you have made the UIMainController of course.
-         */
+
         countriesArray = new ArrayList();
         countriesArrayName = new ArrayList();
                 countriesArray = countries.getCountries();
@@ -75,24 +78,18 @@ public class MainActivity extends Activity {
                 String item = ((TextView) view).getText().toString();
                 if (count == 0) {
                     countryA = getCountryByName(countriesArrayName.get(position));
-                    TextView txCountryA = (TextView) findViewById(R.id.tvCountryA);
-                    txCountryA.setText(countriesArrayName.get(position));
-                    Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
                     count++;
                 } else if (count == 1) {
                     if (countryA == null) {
                         countryA = getCountryByName(countriesArrayName.get(position));
-                        TextView txCountryA = (TextView) findViewById(R.id.tvCountryA);
-                        txCountryA.setText(countriesArrayName.get(position));
-                        Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
-                    } else if(countryB == null){
+                        Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                    } else if (countryB == null) {
                         countryB = getCountryByName(countriesArrayName.get(position));
-                         TextView txCountryB = (TextView) findViewById(R.id.tvCountryB);
-                        txCountryB.setText(countriesArrayName.get(position));
-                        Toast.makeText(getBaseContext(),item,Toast.LENGTH_LONG).show();
-                     }
+                        Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                    }
                     count++;
-                    /**Method thing(countryA,countryB) **/
+                    populateView(countryA, countryB);
                 } else if (count >= 2 && (countriesArrayName.get(position).equals(countryA.getName()) ||
                         countriesArrayName.get(position).equals(countryB.getName()))) {
                     if (countriesArrayName.get(position).equals(countryA.getName())) {
@@ -100,21 +97,98 @@ public class MainActivity extends Activity {
                     } else {
                         countryB = null;
                     }
-                    count --;
+                    count--;
                 }
 
 
-         }
+            }
         });
+
+        Button btReset = (Button) findViewById(R.id.btReset);
+        btReset.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           countryA = null;
+                                           countryB = null;
+                                       }
+                                   });
+
+                countryName = countries.getCountries();
+
+        countryA = countryName.get(181);
+        countryB = countryName.get(3);
+
+        indicator1 = (TextView)findViewById(R.id.payTaxData);
+        indicator2 = (TextView)findViewById(R.id.newBusinessData);
+        indicator3 = (TextView)findViewById(R.id.easeOfBusinessData);
+
+        collectionOfTextviews= new ArrayList<>();
+        collectionOfTextviews.add(indicator1);collectionOfTextviews.add(indicator2); collectionOfTextviews.add(indicator3);
+
+
+
+        View.OnClickListener buttonYearOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button btn = (Button) findViewById(v.getId());
+                String yearS = (String) btn.getText();
+                if (yearS.equals("2014")) {
+                    year = 2014;
+                    populateView(countryA, countryB);
+                }
+                else {
+                    year = 2015;
+                    populateView(countryA,countryB);
+
+                }
+            }
+        };
+
+        btn2014 = (Button) findViewById(R.id.button2014);
+        btn2015 = (Button) findViewById(R.id.button2015);
+
+        btn2014.setOnClickListener(buttonYearOnClickListener);
+        btn2015.setOnClickListener(buttonYearOnClickListener);
+
+        nullValues = (TextView) findViewById(R.id.nullValueTv);
+        nullValues.setVisibility(View.INVISIBLE);
+
+
+        pieChart = (PieChart) findViewById(R.id.pieChart2);
+        populateView(countryA,countryB);
+        pieChart.setUsePercentValues(true);
+        pieChart.setDescription("");
+        pieChart.getLegend().setEnabled(false);
 
     }
 
     private Country getCountryByName(String countryName){
-       for (Country cx : countriesArray) {
-         if (cx.getName().equals(countryName)) return cx;}
+            for(Country cx : countriesArray){
+                if(cx.getName().equals(countryName)) return cx;
+            }
         return null;
     }
 
+    public void populateView(Country countryOne, Country countryTwo) {
+
+        chartsView = new ChartsView(countryOne, countryTwo, year);
+        chartsView.addData();
+        chartsView.checkNull(pieChart, nullValues);
+        pieChart.setData(chartsView.addData());
+        pieChart.invalidate();
+        timeToStartBusinessChart = (HorizontalBarChart) findViewById(R.id.timeToStartBusinessChart);
+        registerBusiness = (HorizontalBarChart) findViewById(R.id.registerBusinessChart);
+        chartsView.dataBarChart("IC.REG.DURS");
+        chartsView.dataBarChart("IC.REG.PROC");
+        registerBusiness.setData(chartsView.dataBarChart("IC.REG.PROC"));
+        timeToStartBusinessChart.setData(chartsView.dataBarChart("IC.REG.DURS"));
+        timeToStartBusinessChart.invalidate();
+        registerBusiness.invalidate();
+        chartsView.setBarCharts(timeToStartBusinessChart);
+        chartsView.setBarCharts(registerBusiness);
+        indicators = new TextBoxController(collectionOfTextviews, countryOne, countryTwo, year);
+        indicators.setText();
 
 
+    }
 }
