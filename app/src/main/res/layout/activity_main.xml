@@ -9,7 +9,7 @@
     tools:context=".MainActivity"
     android:id="@+id/mainLayout">
 
-        <LinearLayout
+    <LinearLayout
             android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,11 +86,11 @@
 
 >>>>>>> ChartView
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:id="@+id/linearLayout1"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:layout_alignTop="@+id/listpanel"
 
         android:layout_toEndOf="@+id/listpanel">
@@ -138,8 +138,8 @@
     </RelativeLayout>
 
         <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="450dp"
+        android:layout_height="180dp"
         android:id="@+id/pieLayout">
     <TextView
         android:layout_width="wrap_content"
@@ -159,31 +159,23 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/nullValueTv"
-            android:layout_marginTop="63dp"
             android:layout_marginLeft="100dp"
             android:textStyle="bold|italic"
             android:textColor="#010101"
-            android:layout_marginStart="39dp"
-            android:layout_alignTop="@+id/pieChart2"
-            android:layout_alignStart="@+id/pieChart2"
-            android:typeface="serif" />
+            android:layout_marginStart="35dp"
+            android:paddingTop="10dp"
+            android:typeface="serif"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/pieChart2" />
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart2"
-        android:layout_width="200sp"
+        android:layout_width="150sp"
         android:layout_height="150sp"
         android:padding = "50dp"
         android:layout_marginStart="39dp"
         android:layout_below="@+id/textView3"
       />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/btReset"
-                android:layout_alignBottom="@+id/nullValueTv"
-                android:layout_toEndOf="@+id/nullValueTv" />
         </RelativeLayout>
 
 <RelativeLayout
@@ -221,10 +213,10 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:layout_toEndOf="@+id/linearLayout1"
-    android:layout_marginStart="20dp"
+    android:layout_marginStart="40dp"
 
 
-    >
+    android:id="@+id/linearLayout">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -409,5 +401,16 @@
     </RelativeLayout>
 
 </LinearLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Reset countries"
+        android:id="@+id/btReset"
+        android:textSize="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/linearLayout1"
+        android:layout_marginStart="292dp" />
 
 </RelativeLayout>
