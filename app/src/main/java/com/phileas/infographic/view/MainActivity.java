@@ -25,6 +25,7 @@ import java.util.Collections;
 
 /**
  *Activity that displays the entire App.
+ * @Author: Hannah, Elisabeta , Shokrya , Phileas
  */
 public class MainActivity extends Activity {
 
