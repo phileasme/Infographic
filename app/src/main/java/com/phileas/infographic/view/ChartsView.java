@@ -1,5 +1,6 @@
 package com.phileas.infographic.view;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -115,16 +116,21 @@ public class ChartsView extends MainActivity{
 
         ArrayList<BarDataSet>  dataSets = new ArrayList<>();
 
-        if (countryOneValue.equals("null")){
+        if (countryOneValue.equals("null") && !countryTwoValue.equals("null")){
             countryOneValue="0";
 
-        } else if (countryTwoValue.equals("null")){
+        } else if (countryTwoValue.equals("null") && !countryOneValue.equals("null")){
             countryTwoValue="0";
         }
         else if(countryOneValue.equals("null") && countryTwoValue.equals("null")){
             countryOneValue="0";
             countryTwoValue="0";
         }
+        else{
+            countryOneValue = countryOne.getIndicator(year, indicator);
+            countryTwoValue= countryTwo.getIndicator(year, indicator);
+        }
+
         populateValueSet();
 
         BarDataSet yValueBarDataSet = new BarDataSet(valueSet,"");
@@ -150,8 +156,15 @@ public class ChartsView extends MainActivity{
     }
 
     public void populateValueSet(){
-        valueSet.add(new BarEntry(Float.parseFloat(countryOneValue), 0));
-        valueSet.add(new BarEntry(Float.parseFloat(countryTwoValue), 1));
+
+        float floatCountryOne = Float.parseFloat(countryOneValue);
+        float floatCountryTwo = Float.parseFloat(countryTwoValue);
+
+        BarEntry barEntryOne = new BarEntry(floatCountryOne,0);
+        BarEntry barEntryTwo = new BarEntry(floatCountryTwo,1);
+        Log.i(" Mistake " , floatCountryOne + "   the sec. value " + floatCountryTwo);
+        valueSet.add(barEntryOne);
+        valueSet.add(barEntryTwo);
     }
 
 
