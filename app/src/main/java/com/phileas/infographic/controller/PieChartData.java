@@ -5,7 +5,8 @@ import com.phileas.infographic.view.MainActivity;
 
 
 /**
- * Created by elizabetamukanova on 07/12/2015.
+ * Class that adds data to the pie chart.
+ * @Author: Elizabeta Mukanova.
  */
 public class PieChartData {
 

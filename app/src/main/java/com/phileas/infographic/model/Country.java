@@ -72,7 +72,7 @@ public class Country {
      */
     public String getIndicator(Integer date,String indicatorName){
         Pair<Integer,String> primaryTuple = new Pair<Integer,String>(date,indicatorName);
-        return indicators.get(primaryTuple);
+        return ""+indicators.get(primaryTuple);
     }
 
     /**
