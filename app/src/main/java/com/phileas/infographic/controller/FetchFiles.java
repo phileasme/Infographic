@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
+import com.phileas.infographic.view.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Peace on 03/12/2015.
+ * Class that fetchs the required files from from the BankData set
  */
 public class FetchFiles {
     String file;
@@ -31,12 +33,13 @@ public class FetchFiles {
     String [] listOfIndicators;
     ArrayList<String> indicatorNames;
     String [] urls;
+    MainActivity mainActivity;
     //Country,      Indicator         Value
     HashMap<String,HashMap<Pair<Integer,String>,String>> allCountriesInfoExtract;
     /**
      * @param context;
      */
-    public FetchFiles(Context context){
+    public FetchFiles(Context context,MainActivity mainActivity){
         allCountriesInfoExtract = new HashMap();
         this.context = context;
         getListOfIndicatorNames();
