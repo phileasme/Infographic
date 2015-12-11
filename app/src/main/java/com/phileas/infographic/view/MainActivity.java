@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     private Country countryA,countryB;
     private int year=2015;
     private Countries countries = new Countries();
-    TextView indicator1, indicator2, indicator3;
+    TextView indicator1, indicator2, indicator3, exportIndicatorCountryOne, exportIndicatorCountryTwo ;
     public TextView nullValues;
     private ChartsView chartsView;
     ArrayList<TextView> collectionOfTextviews;
@@ -123,9 +123,12 @@ public class MainActivity extends Activity {
         indicator1 = (TextView)findViewById(R.id.payTaxData);
         indicator2 = (TextView)findViewById(R.id.newBusinessData);
         indicator3 = (TextView)findViewById(R.id.easeOfBusinessData);
+        exportIndicatorCountryOne = (TextView) findViewById(R.id.exportsCountryOne);
+        exportIndicatorCountryTwo = (TextView) findViewById(R.id.exportsCountryTwo);
 
         collectionOfTextviews= new ArrayList<>();
         collectionOfTextviews.add(indicator1);collectionOfTextviews.add(indicator2); collectionOfTextviews.add(indicator3);
+        collectionOfTextviews.add(exportIndicatorCountryOne); collectionOfTextviews.add(exportIndicatorCountryTwo);
 
 
 
