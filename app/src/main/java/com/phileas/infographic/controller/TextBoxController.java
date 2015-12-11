@@ -1,5 +1,6 @@
 package com.phileas.infographic.controller;
 
+import android.text.Html;
 import android.widget.TextView;
 
 import com.phileas.infographic.model.Country;
@@ -100,9 +101,9 @@ public class TextBoxController {
         }else if( country1BusinessData.equals("null") && country2BusinessData != null){
             textViewNewBusinessReg.setText(nameOfCountry + " has no data available, and " + nameOfCountry2 + " has " + country2BusinessData + " businesses registered.");
         }else if(country1BusinessData!=null && country2BusinessData.equals("null")){
-            textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " businesses and " + nameOfCountry2 + " has no data available.");
+            textViewNewBusinessReg.setText(nameOfCountry + " has " +  country1BusinessData  + " businesses and " + nameOfCountry2 + " has no data available.");
         }else  {
-            textViewNewBusinessReg.setText(nameOfCountry + " has " + country1BusinessData + " new businesses registered and " + nameOfCountry2 + " has " + country2BusinessData + ".");
+            textViewNewBusinessReg.setText(nameOfCountry + " has "+ country1BusinessData  +" new businesses registered and " + nameOfCountry2 + " has " + country2BusinessData + ".");
 
         }
 
