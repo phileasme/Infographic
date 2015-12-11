@@ -178,6 +178,7 @@ public class MainActivity extends Activity {
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.getLegend().setEnabled(false);
+        Log.i("Message", "aocija");
 
     }
 
