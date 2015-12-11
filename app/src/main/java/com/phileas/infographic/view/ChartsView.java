@@ -93,6 +93,10 @@ public class ChartsView extends MainActivity{
             nullValues.setText("Unfortunately, there is no data for Total tax rate (% of commercial profits) for " + pieChartData.getCountryThatIsNull());
             nullValues.setVisibility(View.VISIBLE);
         }
+        else {
+            pieChart.setVisibility(View.VISIBLE);
+            nullValues.setVisibility(View.INVISIBLE);
+        }
 
     }
 
