@@ -25,13 +25,9 @@ import java.util.Collections;
 
 public class MainActivity extends Activity {
 
-
     private ArrayList<Country> countriesArray;
     private ArrayList<String> countriesArrayName;
     private int count = 2;
-
-
-
     private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
     private PieChart pieChart;
     private ListView listView;
@@ -185,12 +181,25 @@ public class MainActivity extends Activity {
 
     }
 
+    /** Method that finds the country assosciated with the country name
+     *
+     * @param countryName
+     * @return the country assosciated with the specified name
+     */
+
     private Country getCountryByName(String countryName){
             for(Country cx : countriesArray){
                 if(cx.getName().equals(countryName)) return cx;
             }
         return null;
     }
+
+
+    /** Method that populates the pie chart and bar charts with the right indicators and countries
+     *
+     * @param countryOne
+     * @param countryTwo
+     */
 
     public void populateView(Country countryOne, Country countryTwo) {
 
