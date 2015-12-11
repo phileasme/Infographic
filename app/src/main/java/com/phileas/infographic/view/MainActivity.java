@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 
     private ArrayList<Country> countriesArray;
     private ArrayList<String> countriesArrayName;
-    private int count = 0;
+    private int count = 2;
 
 
     private HorizontalBarChart timeToStartBusinessChart, registerBusiness;
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     private Button btn2014;
     TextBoxController indicators;
     private ReadAllAssets retrieveAllLocalCountriesInfo;
-    private Country countryA,countryB;
+    private Country countryA,countryB,previousCountryA,previousCountryB;
     private int year=2015;
     private Countries countries = new Countries();
     TextView indicator1, indicator2, indicator3;
@@ -81,21 +81,29 @@ public class MainActivity extends Activity {
                     countryA = getCountryByName(countriesArrayName.get(position));
                     Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
                     count++;
-                } else if (count == 1) {
+                } else if (count == 1 && (countryA == null || countryB == null)) {
                     if (countryA == null) {
-                        countryA = getCountryByName(countriesArrayName.get(position));
-                        Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                        if(!countryB.equals(getCountryByName(countriesArrayName.get(position)))) {
+                            countryA = getCountryByName(countriesArrayName.get(position));
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                            count++;
+                            populateView(countryA, countryB);
+                        }
                     } else if (countryB == null) {
-                        countryB = getCountryByName(countriesArrayName.get(position));
-                        Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                        if (!countryA.equals(getCountryByName(countriesArrayName.get(position)))) {
+                            countryB = getCountryByName(countriesArrayName.get(position));
+                            Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                            count++;
+                            populateView(countryA, countryB);
+                        }
                     }
-                    count++;
-                    populateView(countryA, countryB);
                 } else if (count >= 2 && (countriesArrayName.get(position).equals(countryA.getName()) ||
                         countriesArrayName.get(position).equals(countryB.getName()))) {
                     if (countriesArrayName.get(position).equals(countryA.getName())) {
-                        countryA = null;
+                        previousCountryA = countryA;
+                         countryA = null;
                     } else {
+                        previousCountryB = countryB;
                         countryB = null;
                     }
                     count--;
@@ -109,8 +117,11 @@ public class MainActivity extends Activity {
         btReset.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
+                                           previousCountryA = countryA;
+                                           previousCountryB = countryB;
                                            countryA = null;
                                            countryB = null;
+                                           count= 0;
                                        }
                                    });
 
@@ -133,8 +144,15 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Button btn = (Button) findViewById(v.getId());
                 String yearS = (String) btn.getText();
+                //Safe guard.
+                if(countryA == null){
+                    countryA = previousCountryA;
+                }else if(countryB == null){
+                    countryB = previousCountryB;
+                }
                 if (yearS.equals("2014")) {
                     year = 2014;
+
                     populateView(countryA, countryB);
                 }
                 else {
