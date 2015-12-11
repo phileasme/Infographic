@@ -26,7 +26,8 @@ import com.phileas.infographic.model.Country;
 
 /**
  * Created by elizabetamukanova on 10/12/2015.
- *
+ * ChartsView class is used to populate the bar charts and the pie chart with
+ * data for the countries that have been chosen.
  */
 public class ChartsView extends MainActivity{
     PieDataSet pieDataSet;
