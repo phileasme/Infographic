@@ -26,8 +26,8 @@ public class ReadFromJson {
     String filename;
     Context currentContext;
 
-                //COUNTRY             YEAR Indicator   VALUE
-        HashMap<String,HashMap<Pair<Integer,String>,String>> countrySpecificIndex;
+    //COUNTRY             YEAR Indicator   VALUE
+    HashMap<String,HashMap<Pair<Integer,String>,String>> countrySpecificIndex;
 
     /**
      *
@@ -38,7 +38,6 @@ public class ReadFromJson {
         currentContext = context;
         filename =file;
         countrySpecificIndex = new HashMap();
-            loadJSONFromAsset();
     }
 
     /**
@@ -47,32 +46,42 @@ public class ReadFromJson {
      */
     public  HashMap<String,HashMap<Pair<Integer,String>,String>>  loadJSONFromAsset() {
 
-            InputStream is = null;
-            String jsonData = "";
-            BufferedReader br = null;
-            try {
+        InputStream is = null;
+        String jsonData = "";
+        BufferedReader br = null;
+        try {
 
-                String bufferString = "";
-                 is = currentContext.getAssets().open(filename);
-                br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                int bufferLength;
-                while ((bufferString = br.readLine()) != null) {
-                    jsonData += bufferString + "\n";
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (br != null)
-                        br.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+            String bufferString = "";
+            is = currentContext.getAssets().open(filename);
+            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int bufferLength;
+            while ((bufferString = br.readLine()) != null) {
+                jsonData += bufferString + "\n";
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        extractingJsonInfo(jsonData);
+        return countrySpecificIndex;
+    }
+
+    /**
+     *Method that extract the Json from the files
+     * @param jsonData
+     * @return Hashmap relation of a country's with their respected indicators
+     */
+    public HashMap<String,HashMap<Pair<Integer,String>,String>> extractingJsonInfo(String jsonData){
         JSONArray result = null;
         try {
-                result = new JSONArray(jsonData);
+            result = new JSONArray(jsonData);
 
             JSONArray countryList = result.getJSONArray(1);
 
@@ -101,6 +110,7 @@ public class ReadFromJson {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    return countrySpecificIndex;
+        return countrySpecificIndex;
     }
+
 }
