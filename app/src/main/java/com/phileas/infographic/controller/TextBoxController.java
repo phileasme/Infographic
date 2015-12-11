@@ -203,7 +203,7 @@ public class TextBoxController {
             textViewExportsCountryOne.setText(country1ExportData + " %" + "\n " + nameOfCountry);
 
         }if (country2ExportData.equals("null")){
-            textViewExportsCountryTwo.setText("Sorry no data is currently available for "+ nameOfCountry);
+            textViewExportsCountryTwo.setText("Sorry no data is currently available for "+ nameOfCountry2);
         }else {
             textViewExportsCountryTwo.setText(country2ExportData + " %" + "\n " + nameOfCountry2);
 
